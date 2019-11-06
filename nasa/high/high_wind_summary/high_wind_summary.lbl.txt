@@ -1,0 +1,279 @@
+PDS_VERSION_ID           = PDS3
+ 
+RECORD_TYPE              = FIXED_LENGTH
+FILE_RECORDS             = 47361
+RECORD_BYTES             = 167
+^TABLE                   = "HIGH_WIND_SUMMARY.TAB"
+ 
+DATA_SET_ID              = "VL2-M-SEIS-5-RDR-V1.0"
+PRODUCT_ID               = "HIGH_WIND_SUMMARY"
+PRODUCT_CREATION_TIME    = 2016-12-12T00:00:00
+SPACECRAFT_NAME          = "VIKING LANDER 2"
+INSTRUMENT_NAME          = "VIKING LANDER 2 SEISMOLOGY EXPERIMENT"
+TARGET_NAME              = "MARS"
+START_TIME               = 1976-09-04T00:53:01
+STOP_TIME                = 1978-03-16T23:35:35
+SPACECRAFT_CLOCK_START_COUNT = "N/A"
+SPACECRAFT_CLOCK_STOP_COUNT  = "N/A"
+
+ 
+OBJECT                   = TABLE
+  INTERCHANGE_FORMAT     = ASCII
+  ROWS                   = 47361
+  ROW_BYTES              = 167
+  COLUMNS                = 24
+  DESCRIPTION            = "This file is a summary of the Viking Seismometer 
+    Data High Rate records, intended as a high-level index to events of 
+    interest, and for large-scale correlation with meteorological data.  
+    For details see VPDS_HIGH_WINDS_FORMAT.TXT in the DOCUMENT directory.
+    Time is Local Lander Time."
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 1
+    NAME                 = ARCHIVED_RECORD_NUMBER
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 1
+    BYTES                = 7
+    DESCRIPTION          = "An ordinal number indicating the record in 
+      the present file and in the corresponding archive files 
+      (VPDS_HIGH_XDAT.CSV etc.) Note that those files only carry the 
+      records with 51 readings, hence there are fewer records in the 
+      archive file than in the present summary."
+  END_OBJECT             = COLUMN
+
+
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 2
+    NAME                 = SEISMIC_TIME_SOLS
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 8
+    BYTES                = 12
+    DESCRIPTION          = "The mission time in decimal Sols (i.e. 
+                           sol+(hr*3600.0+min*60.0+sec)/88775.0)."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 3
+    NAME                 = ORIGINAL_FILE_NUMBER
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 20
+    BYTES                = 6
+    DESCRIPTION          = "The file number of the original data  (i.e. 
+      file number 0101 corresponds to VUSA.0101)."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 4
+    NAME                 = ORIGINAL_RECORD_NUMBER
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 26
+    BYTES                = 7
+    DESCRIPTION          = "The line number in the original VUSA file to 
+      which the present record corresponds."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 5
+    NAME                 = DATA_ACQUISITION_SOL
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 33
+    BYTES                = 4
+    DESCRIPTION          = "The sol number on which the data were acquired. 
+      Landing day is sol 0." 
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 6
+    NAME                 = DATA_ACQUISITION_HOUR
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 37
+    BYTES                = 4
+    DESCRIPTION          = "The hour of acquisition end."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 7
+    NAME                 = DATA_ACQUISITION_MINUTE
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 41
+    BYTES                = 4
+    DESCRIPTION          = "The minute of acquisition end."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 8
+    NAME                 = DATA_ACQUISITION_SECOND
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 45
+    BYTES                = 4
+    DESCRIPTION          = "The second of acquisition end.  Note that 
+      high rate data are acquired at 20.2 Hz, thus the 83-sample record 
+      corresponds to about 4 seconds."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 9
+    NAME                 = MEAN_X_AXIS
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 49
+    BYTES                = 9
+    DESCRIPTION          = "The mean of the X-axis readings.  1 digital 
+      unit (DU) corresponds roughly to 2nm at 3Hz (see 
+      seismic_dataset.cat)."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 10
+    NAME                 = VARIANCE_X_AXIS
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 58
+    BYTES                = 9
+    DESCRIPTION          = "The variance of the X-axis readings."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 11
+    NAME                 = SKEW_X_AXIS
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 67
+    BYTES                = 9
+    INVALID_CONSTANT     = -99.99
+    DESCRIPTION          = "The skew of the X-axis readings, or -99.99
+      if undefined."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 12
+    NAME                 = KURTOSIS_X_AXIS
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 76
+    BYTES                = 9
+    INVALID_CONSTANT     = -99.99
+    DESCRIPTION          = "The kurtosis of the X-axis readings, or -99.99
+      if undefined."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 13
+    NAME                 = MINIMUM_X_AXIS
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 85
+    BYTES                = 5
+    DESCRIPTION          = "The minimum X-axis reading in the record."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 14
+    NAME                 = MAXIMUM_X_INTEGER
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 90
+    BYTES                = 5
+    DESCRIPTION          = "The maximum X-axis reading in the record."
+  END_OBJECT             = COLUMN
+  
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 15
+    NAME                 = MINIMUM_Y_AXIS
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 95
+    BYTES                = 5
+    DESCRIPTION          = "The minimum Y-axis reading in the record."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 16
+    NAME                 = MAXIMUM_Y_AXIS
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 100
+    BYTES                = 5
+    DESCRIPTION          = "The maximum Y-axis reading in the record."
+  END_OBJECT             = COLUMN
+  
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 17
+    NAME                 = MINIMUM_Z_AXIS
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 105
+    BYTES                = 5
+    DESCRIPTION          = "The minimum Z-axis reading in the record."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 18
+    NAME                 = MAXIMUM_Z_AXIS
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 110
+    BYTES                = 5
+    DESCRIPTION          = "The maximum Z-axis reading in the record."
+  END_OBJECT             = COLUMN
+  
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 19
+    NAME                 = METEO_TIME_SOLS
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 115
+    BYTES                = 12
+    DESCRIPTION          = "The mission time in decimal Sols (i.e. 
+                           sol+(hr*3600.0+min*60.0+sec)/88775.2)
+					 corresponding to the closest meteorology
+					 data."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 20
+    NAME                 = NEAREST_WINDSPEED
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 127
+    BYTES                = 7
+    UNIT                 = "m/s"
+    DESCRIPTION          = "Closest windspeed measurement(m/s)."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 21
+    NAME                 = NEAREST_PRESSURE 
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 134
+    BYTES                = 7
+    UNIT                 = "mbar"
+    DESCRIPTION          = "Closest pressure (mbar)."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 22
+    NAME                 = NEAREST_WIND_DIRECTION
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 141
+    BYTES                = 8
+    UNIT                 = "deg"
+    DESCRIPTION          = "Closest wind direction (towards which the wind is 
+         blowing, degrees clockwise from North."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 23
+    NAME                 = NEAREST_AIR_TEMPERATURE
+    DATA_TYPE            = ASCII_REAL
+    START_BYTE           = 149
+    BYTES                = 8
+    UNIT                 = "K"
+    DESCRIPTION          = "Closest air temperature (K). Note that 
+      this value has not been screened for possible lander thermal 
+      contamination (see Hess et al. 1977)."
+  END_OBJECT             = COLUMN
+ 
+  OBJECT                 = COLUMN
+    COLUMN_NUMBER        = 24
+    NAME                 = WIND_SEISMIC_INTERVAL
+    DATA_TYPE            = ASCII_INTEGER
+    START_BYTE           = 157
+    BYTES                = 9
+    UNIT                 = "second"
+    DESCRIPTION          = "Time in seconds between closest wind measurement
+      and the end of the seismic record (for the first and last sol of the 
+      file, this value should be ignored). Positive
+      means seismic data obtained after meteorology"
+  END_OBJECT             = COLUMN
+ 
+END_OBJECT               = TABLE
+END

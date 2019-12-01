@@ -94,11 +94,7 @@ dataPCA = PCA(k=1, inputCol='sismsNorm', outputCol="sismsNormPCA")
 fitPCA = dataPCA.fit(df)
 df = fitPCA.transform(df)
 
-#GMM
 
-
-
-#--------
 
 dataPCA = PCA(k=1, inputCol='pre_tempNorm', outputCol="pre_tempNormPCA")
 fitPCA = dataPCA.fit(df)
@@ -117,28 +113,10 @@ trainingData = assembler.transform(df)
 log = open("log.txt", "a+")
 for i in range(4, 5):
 #start_time = time.time()
-	gmm = GaussianMixture().setK(i) #PROBANDO CON GMM 
+	gmm = GaussianMixture().setK(i) 
 model = gmm.fit(trainingData)
 
-#mostramos resultado
-#transformed.show()
 
-#Mostramos la info del resultado, copiado y pegado de la pagina de documentacion
-#wssse = model.computeCost(trainingData)
-
-#print("Within Set Sum of Squared Errors = " + str(wssse))
-
-#guardado del modelo
-#model.save('modelo_kmeans_' + str(i) + '.model')
-
-#computingCostIndex.append(i)
-#computingCost.append(wssse)
-
-# Shows the result.
-#centers = model.clusterCenters()
-#print("Cluster Centers: ")
-#for center in centers:
-#	print(center)
 
 transformed = model.transform(trainingData)
 

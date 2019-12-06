@@ -17,7 +17,7 @@ import time
 #######################################################################################################
 #sudo pip3 install seaborn
 #sudo pip3 install pandas
-#Necesita instalar tkinter #sudo apt-get install python3-tk
+#Puede que necesites instalar tkinter #sudo apt-get install python3-tk
 #Asegurate de utilizar python3.6 #PON EN CONSOLA export PYSPARK_PYTHON=/usr/bin/python3.6
 #######################################################################################################
 
@@ -26,6 +26,7 @@ conf = SparkConf().setMaster('local[*]').setAppName('Clustering')
 sc = SparkContext(conf = conf)
 spark = SparkSession.builder.master("local").appName("Clustering").getOrCreate()
 
+#Leemos las cabeceras de cada columna
 headers = prepro.read_headers("../nasa/event/event_wind_summary/event_wind_summary.lbl.txt")
 
 #Cogemos los datos del archivo
@@ -40,17 +41,21 @@ rawData = rawData.map(lambda array: [float(x) for x in array])
 #Transformamos a dataframe de SPARK
 df = rawData.toDF(headers)
 
-#Cogemos las columnas que queremos usar
-sisms = ['MEDIAN_X_AXIS', 'FIRST_X_AXIS',
-       'MAXIMUM_X_AXIS','RMS_X_AXIS_X100',
-       'RMS_Y_AXIS_X100', 'RMS_Z_AXIS_X100','WINDSPEED']
 
+#Vamos a coger los grupos de variables que queremos utilizar para el entrenamiento
+	#y a dividirlas segun las correlaciones entre cada grupo
+# Grupo 1 -> Magnitud del sismogrado y la velocidad del viento correlacionadas
+sisms = ['RMS_X_AXIS_X100', 'WINDSPEED']
+
+# Grupo 2 -> Presion y temperatura atmosferica correlacionadas
 pre_temp = ['PRESSURE','AIR_TEMPERATURE']
 
-indep = ['MINIMUM_X_AXIS','MEAN_X_AXIS_CROSSINGS',
-       'MEAN_Y_AXIS_CROSSINGS', 'MEAN_Z_AXIS_CROSSINGS','WIND_DIRECTION']
+# Variables independientes entre si 
+indep = ['MEAN_X_AXIS_CROSSINGS', 'MEAN_Y_AXIS_CROSSINGS', 'MEAN_Z_AXIS_CROSSINGS','WIND_DIRECTION']
 
-#Creamos nuevas columnas con los grupos
+#Cogemos las columnas que queremos usar
+
+#Agrupamos los datos segun las cabeceras inputCols en una unica columna outpuCol
 assembler = VectorAssembler(inputCols=sisms, outputCol='sisms')
 df = assembler.transform(df)
 
@@ -60,45 +65,52 @@ df = assembler.transform(df)
 assembler = VectorAssembler(inputCols=indep, outputCol='indep')
 df = assembler.transform(df)
 
-#Vamos a crear nuevas columnas con los datps estrandarizados con 
+
+#Vamos a estandarizar cada grupo de datos y a guardar el modelo que utilizamos
+	# para estandarizar. 
 scaler = StandardScaler(inputCol="sisms", outputCol="sismsNorm")
 scalerModel = scaler.fit(df)
+scalerModel.write().overwrite().save('model/KMScalerSisms.scaler')
 df = scalerModel.transform(df)
 
 scaler = StandardScaler(inputCol="pre_temp", outputCol="pre_tempNorm")
 scalerModel = scaler.fit(df)
+scalerModel.write().overwrite().save('model/KMScalerPreTemp.scaler')
 df = scalerModel.transform(df)
 
 scaler = StandardScaler(inputCol="indep", outputCol="indepNorm")
 scalerModel = scaler.fit(df)
+scalerModel.write().overwrite().save('model/KMScalerIndep.scaler')
 df = scalerModel.transform(df)
 
+#Borramos estas columnas a las que ya no les daremos uso
 df = df.drop('sisms', 'pre_temp', 'indep')
 
-#PCA
+#Aplicamos PCA a los grupos de variables correlacionadas para agruparlos en una unica
+	#variable, ya que kmeans asume que ninguna variable esta correlacionada cuando entrena
 dataPCA = PCA(k=1, inputCol='sismsNorm', outputCol="sismsNormPCA")
 fitPCA = dataPCA.fit(df)
+fitPCA.write().overwrite().save('model/KMPCAsisms.PCA')
 df = fitPCA.transform(df)
 
 dataPCA = PCA(k=1, inputCol='pre_tempNorm', outputCol="pre_tempNormPCA")
 fitPCA = dataPCA.fit(df)
+fitPCA.write().overwrite().save('model/KMPCApreTemp.PCA')
 df = fitPCA.transform(df)
 
-df.show()
-
+#Agrupamos las columnas con las que vamos a entrenar en una columna feautures
 assembler = VectorAssembler(
     inputCols=['sismsNormPCA', 'pre_tempNormPCA', 'indepNorm'],
     outputCol='features')
 
-#agregamos la columna
 trainingData = assembler.transform(df)
 
 #Creamos un par de arrays que guarden el coste de cada modelo para poder
-#represemtarñp gráficamente luego
+#represemtar graficamente luego
 computingCostIndex = []
 computingCost = []
 
-#Creo un diccionario con colores para representar graficamente luego los resultados
+#Creamos un diccionario con colores para representar graficamente luego los resultados
 color_dict = dict({0:'tomato',
                   1:'limegreen',
                   2: 'orange',
@@ -109,19 +121,17 @@ color_dict = dict({0:'tomato',
                   7: 'grey',
                   8: 'lightpink'})
 
-log = open("log.txt", "a+")
-#Bucle para probar con distinto número de grupos
-for i in range(3, 9):
-	#start_time = time.time()
+#Bucle para probar con distinto numero de grupos
+for i in range(4, 5):
 	#Entrenamos el modelo de Kmeans con un numero de grupos igual a i
 	kmeans = KMeans().setK(i)
 	model = kmeans.fit(trainingData)
 
-	#Computamos el cosete del modelo
+	#Computamos el coste del modelo
 	wssse = model.computeCost(trainingData)
 
-	#guardado del modelo
-	model.save('model/KM' + str(i) + '.model')
+	#Guardado del modelo
+	model.write().overwrite().save('model/KM' + str(i) + '.model')
 
 	#Aniadimos el coste a los arrays
 	computingCostIndex.append(i)
@@ -139,7 +149,9 @@ for i in range(3, 9):
 		describeGrouped = describeGrouped.describe()
 		describeGrouped.write.option("header", "true").csv("describe/describe_kmeans_" + str(i) + "/precition_" + str(j) + ".txt", mode="overwrite")
 
-	#Creamos varios graficos que ilustren los grupos formados
+	#Transformamos el dataframe de spark a un dataframe de pandas para poder representarlo
+	pdDF = transformed.toPandas()
+	#Creamos varios graficos que ilustren los grupos formados y los guardamos
 	plt.figure()
 	sns_fig = sns.scatterplot(x=pdDF['RMS_X_AXIS_X100'], y=pdDF['SEISMIC_TIME_SOLS'], hue=pdDF['prediction'], linewidth=0, alpha = 0.7, palette=color_dict, legend=False)
 	plt.savefig("images/KM" + str(i) + "_rms_sols.png")
@@ -152,10 +164,10 @@ for i in range(3, 9):
 	sns_fig = sns.scatterplot(x=pdDF['RMS_X_AXIS_X100'], y=pdDF['WIND_DIRECTION'], hue=pdDF['prediction'], linewidth=0, alpha = 0.7, palette=color_dict, legend=False)
 	plt.savefig("images/KM" + str(i) + "_rms_winddir.png")	
 
-#Mostramos el gráfico con el coste
+#Guardamos el grafico con el coste de cada grupo
 plt.figure()
 plt.plot(computingCostIndex, computingCost, '-')
 plt.ylabel('Within set sum of squared errors')
 plt.xlabel('Number of clusters')
-plt.savefig("codo2.png")
+plt.savefig("images/codo.png")
 

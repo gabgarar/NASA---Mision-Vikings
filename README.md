@@ -11,7 +11,7 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
 
 ## INDICE
 
-- [ 1) FASE DE ANÁLISIS](#fase-de-análisis).
+- [ 1) FASE DE ANÁLISIS](#1-fase-de-análisis).
   - [1.1) PROCEDENCIA DE LOS DATOS](#insertar-hn).
   - [1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS](#insertar-hn).
     - [1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
@@ -37,6 +37,6 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   - [4.2) FUNCIONAMIENTO GENRAL DEL SISTEMA](#insertar-hn).
   
   
- 
-  ### FASE DE ANÁLISIS
+  ##
+  ## 1 FASE DE ANÁLISIS
 

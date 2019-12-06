@@ -15,7 +15,15 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   - [1.1) PROCEDENCIA DE LOS DATOS](#insertar-hn).
   - [1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS](#insertar-hn).
     - [1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
-     - [1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
-2) FASE DE MODELADO DE ALGORITMOS NO SUPERVISADOS
-3) FASE DE PREDICTOR Y GENERADOR DE DATOS PARA SIMULACIÓN
-4) CLASIFICACIÓN DE FLUJO
+    - [1.2.2) ESTRUCTURA DE LOS DATOS](#insertar-hn).
+    - [1.2.3) LECTURA DEL DATASET](#insertar-hn).
+    - [1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR](#insertar-hn).
+   - [1.3) AGRUPACIÓN DE DATOS](#insertar-hn)
+   - [1.4) VARIABLES NO RELACIONADAS LINEALMENTE](#insertar-hn)
+   
+- [ 2) FASE DE MODELADO DE ALGORITMOS NO SUPERVISADOS](#insertar-hn).
+
+- [ 3) FASE DE PREDICTOR Y GENERADOR DE DATOS PARA SIMULACIÓN](#insertar-hn).
+
+- [ 4) CLASIFICACIÓN DE FLUJO](#insertar-hn).
+

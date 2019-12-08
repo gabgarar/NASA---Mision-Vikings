@@ -64,8 +64,8 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
     Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
     Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.
     El tercer tipo de archivo lbl, contendrá información sobre el documento al que referencia, que datos tiene de cada columna, en que byte empieza y en cual acaba, y el tipo de datos que contiene.
-    <code>
     
+    ```
       		PDS_VERSION_ID           = PDS3
  
 		RECORD_TYPE              = FIXED_LENGTH
@@ -346,7 +346,7 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
 
 	          END_OBJECT               = TABLE
 		  END
-	<code>
+	```
     
 
      #### 1.2.2) ESTRUCTURA DE LOS DATOS

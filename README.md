@@ -75,6 +75,7 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
      
      Los que nos interesarán en concreto será el high_wind_summary y el event_wind_summary.
 	En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
+	
 	***Variables temporales***:
 	*	**SEISMIC_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos sismográficos.
 	Su ecuación es: sol+(hr*3600.0+min*60.0+sec) /88775.0

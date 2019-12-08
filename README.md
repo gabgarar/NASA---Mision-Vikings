@@ -152,4 +152,4 @@ Para todo ello dispondremos el proyectos en diferentes fases.
      
    #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR
  
-   ![]6(images/describes/1.png?raw=true)
+   opts_knit$set(base.url='https://github.com/gabgarar/NASA---Mision-Vikings/tree/master/images/describes/1.png')

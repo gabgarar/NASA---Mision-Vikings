@@ -39,4 +39,6 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   
   ##
   ## 1 FASE DE ANÁLISIS
+  ### 1.1 PROCEDENCIA DE LOS DATOS
+  
 

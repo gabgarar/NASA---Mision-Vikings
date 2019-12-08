@@ -1,10 +1,7 @@
 from pyspark import SparkConf, SparkContext
 from pyspark.sql import SparkSession
-from pyspark.sql.types import DoubleType
-from pyspark.sql.functions import udf
 from pyspark.ml.clustering import KMeans
-from pyspark.ml import Pipeline
-from pyspark.ml.feature import VectorAssembler, PCA, Normalizer, StandardScaler
+from pyspark.ml.feature import VectorAssembler, PCA, StandardScaler
 
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set()

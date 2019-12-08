@@ -177,5 +177,6 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
 
    *	**MEAN_X_AXIS_CROSSINGS**: Se puede ver que irá desde 0 hasta los 31. Cuanto más rápido oscile la onda, mayor será el número de pasos por 0.
 	Este tipo de valores puede usarse para el estudio sonoro de fondo para la detección de sonidos, estructuras o efectos en tiempos discretos.
+	
    	![Describe.](./images/describes/7.png)
    

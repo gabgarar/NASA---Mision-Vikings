@@ -151,7 +151,5 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     
      
    #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR
-
-
-  
-
+ 
+   ![]6(images/describes/1.png?raw=true)

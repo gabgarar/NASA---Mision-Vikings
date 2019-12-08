@@ -3,11 +3,35 @@
 
 
 ### INTRODUCCIÓN
-Lo primero que haremos es realizar un estudio de los datos recopilados por el proyecto Viking durante su vida útil en la superficie de Marte.
-Una vez hecho el estudio, se realizará un clasificador capaz de analizar a tiempo real un flujo de datos con tal de valorarlos.
-Esto surge debido a que no se tenía en consideración las rachas de viento encontradas en el planeta.
-El brazo en el que se encontraba el sismógrafo, estaba unido al caparazón del módulo, por ello que, al vibrar, daba lecturas erróneas al sismógrafo.
-Por ello que queramos clasificar qué lecturas son válidas de las que no.
+
+El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
+Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
+
+Para todo ello dispondremos el proyectos en diferentes fases.
+	* La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
+		- Como se distribuyen los datos en los diferentes archivos.
+		- Que tipo de datos disponemos.
+		- Qué características tienen esos datos, haciendo uso de estadísticas básicas y distribuciones.
+		- Estandarización o normalización de los datos.
+		- Estudio de correlaciones lineales e introducción en correlaciones no lineales.
+		- Librerías usará cada parte.
+	* La **fase 2** del proyecto será la **preparación de la entrada** del clasificador y su **entrenamiento**.
+		- Subdivisión del dataframe en grupos linealmente independientes.
+		- Aplicación de algorítmo PCA.
+		- Qué algoritmo de clasificación usar y su por qué.
+		- Estudio de los datos de salida del algoritmo de clasificación.
+		- Como exportar el modelo para su uso posterior
+	* La **fase 3** del proyecto será preparar el cliente y el servidor:
+		* Cliente:
+			- Como establecer la conexión.
+			- Como preparar los datos simulados para envíar.
+		* Servidor:
+			- Como establecer la conexión
+			- Como importar el modelo
+			- Como tratar la entrada de datos
+			- Como categorizar en tiempo de flujo real
+	
+		
 
 ## INDICE
 
@@ -24,17 +48,8 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
     - [1.3.3) ANÁLISIS DE RELACIONES LINEALES](#insertar-hn).
     - [1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES](#insertar-hn).
   - [1.4) VARIABLES NO RELACIONADAS LINEALMENTE](#insertar-hn)
-   
-- [ 2) FASE DE MODELADO DE ALGORITMOS NO SUPERVISADOS](#insertar-hn).
-
-- [ 3) FASE DE PREDICTOR Y GENERADOR DE DATOS PARA SIMULACIÓN](#insertar-hn).
-  - [3.1) INTRODUCCIÓN KERAS](#insertar-hn).
-  - [3.2) MONTAJE DE GENERADOR DE DATOS PARA SIMULACIONES EN FLUJO](#insertar-hn).
-  - [3.3) CREACIÓN DEL SERVIDOR](#insertar-hn).
-
-- [ 4) CLASIFICACIÓN DE FLUJO](#insertar-hn).
-  - [4.1) PUESTA A PUNTO DEL SERVICIO DE CLASIFICACIÓN CLIENTE-SERVIDOR](#insertar-hn).
-  - [4.2) FUNCIONAMIENTO GENRAL DEL SISTEMA](#insertar-hn).
+   					          
+... COMPLETAR MUAJAJAJAJA NO , TENGO MIEDO, AYUDA U.Us
   
   
   ##
@@ -54,29 +69,29 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   
   ### 1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS
   
-  Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por la NASA.
+  Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por  la NASA.
   El enlace que usaremos para descargar los archivos es:
   
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
   
-     #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
-    Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
-    Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
-    Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.
-    El tercer tipo de archivo lbl, contendrá información sobre el documento al que referencia, que datos tiene de cada columna, en que byte empieza y en cual acaba, y el tipo de datos que contiene.
+   #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
+   Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
+   Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
+   Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.
+   El tercer tipo de archivo lbl, contendrá información sobre el documento al que referencia, que datos tiene de cada columna, en que byte empieza y en cual acaba, y el tipo de datos que contiene.
     
-    ```
+   ```
     	 AQUI METER UN ARCHIVO FITS Y QUE SE VEA EN FONDO GRIS Y CON SCROLLBAR
 	
-    ```
+   ```
     
 
-     #### 1.2.2) ESTRUCTURA DE LOS DATOS
+   #### 1.2.2) ESTRUCTURA DE LOS DATOS
      
-     Los que nos interesarán en concreto será el high_wind_summary y el event_wind_summary.
-	En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
+   Los que nos interesarán en concreto será el high_wind_summary y el event_wind_summary.
+   En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
 	
-	***Variables temporales***:
+   ***Variables temporales***:
 	*	**SEISMIC_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos sismográficos.
 	Su ecuación es: sol+(hr*3600.0+min*60.0+sec) /88775.0
 	*	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
@@ -93,21 +108,49 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
 
 
 
-	***Variables meteorológicas:***
+   ***Variables meteorológicas:***
 	*	**WINDSPEED**: velocidad del viento en m/s.
 	*	**PRESSURE**: presión atmosférica en mbar.
 	*	**WIND_DIRECTION**: dirección del viento relativa al viento en grados.
 	*	**AIR_TEMPERATURE**: temperatura del aire en kelvin.
 
-	***Variables sismográficas:***
+   ***Variables sismográficas:***
 	*	**FIRST_X_AXIS**: primera lectura tomada del sismografo en el eje X.
 	*	**MEDIAN_X_AXIS**: La media de valores tomados en el eje X. Cada valor esta medido en digital unit (DU) y se corresponde a 2 nm tomados a 3Hz.
 	*	**MAXIMUM_X_AXIS, MINIMUM_X_AXIS**: valor máximo y mínimo de las lecturas tomadas. Pueden ser tanto valores positivos o negativos, en el eje X.
 	*	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
 	*	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
 
-     #### 1.2.3) LECTURA DEL DATASET
-     #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR
+   #### 1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS
+     
+   Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
+   Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
+   Lo primero será importar todas las librerías necesarias para nuestro proyecto en spark.
+
+   Para la parte del entrenamiento del modelo KMeans, PCA ... ( MIGUEL COMPLETA ESTO )...
+
+   ```
+       CODIGO DE IMPORTACION DE LIBRERÍAS DE PYTHON + SPARK PARA EL ARCHIVO .PY DE ENTRENAMIENTO
+
+   ```
+   Para el servidor, que va a ser el que importe los modelos pre-entrenados:
+
+   ```
+      CODIGO DE IMPORTACION DE LIBRERÍAS DE PYTHON + SPARK PARA EL ARCHIVO .PY DE SERVIDOR
+
+   ```
+
+   Para el código del rover o cliente:
+
+   ```
+     CODIGO DE IMPORTACION DE LIBRERÍAS DE PYTHON + SPARK PARA EL ARCHIVO .PY DEL CLIENTE
+
+   ```
+
+   Una vez importadas las librerías en los respectivos archivos, leemos las cabeceras de los archivos .lbl con el código:
+    
+     
+   #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR
 
 
   

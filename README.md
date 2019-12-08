@@ -213,23 +213,26 @@ OBJECT                   = TABLE
    ***Variables temporales***:
    *	**SEISMIC_TIME_SOLS**: Podemos ver que los valores mínimos están en 101 y los máximos en valores 1381 soles decimales.
 	Observando los percentiles podemos decir que los valores están distribuidos por la normal de forma uniforme.
-	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/1.png)
+	
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/1.png)
 	
    *	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
-	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/2.png)
+	
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/2.png)
    *	**WIND_SEISMIC_INTERVAL**: En la documentación se expone que los valores en las ultimas tomas y en las primeras tomas del dataset, no tenía que tenerse en cuenta debido a que los valores eran excesivos.
 	Esto hace que la media y la desviación estándar inicial no pueda usarse.
-   	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/3.png)
+   	
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/3.png)
 
    ***Variables meteorológicas:***
    *	**WINDSPEED**:La velocidad del viento varía entre 0 m/s hasta los 531 m/s. Este valor no tiene sentido. Por lo que seguramente nos tocará hacer una limpieza inicial de valores.
         Viendo los percentiles, hasta un 75% de los datos tomados están por debajo de los 5m/s, valores con vientos de valor bajos – medios.
-  	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/4.png)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/4.png)
    *	**PRESSURE**: La presión irá desde los 0 milibares hasta los 10,7.
-   	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/5.png)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/5.png)
    *	**WIND_DIRECTION**: dirección del viento relativa al viento en grados, de 0º a 360º.
    *	**AIR_TEMPERATURE**: temperatura del aire en kelvin, desde los 50k hasta los 337k.
-   	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/6.png)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/6.png)
 
    ***Variables sismográficas:***
    *	**RMS_X_AXIS_X100**: Debido a que los valores van desde unos -130 hasta +130, usaremos el RMS para sacar una magnitud de dichos valores. 
@@ -239,5 +242,6 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
 
    *	**MEAN_X_AXIS_CROSSINGS**: Se puede ver que irá desde 0 hasta los 31. Cuanto más rápido oscile la onda, mayor será el número de pasos por 0.
 	Este tipo de valores puede usarse para el estudio sonoro de fondo para la detección de sonidos, estructuras o efectos en tiempos discretos.
- 	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/7.png)
+	
+ ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/7.png)
    

@@ -37,12 +37,12 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 ## INDICE
 
 - [ 1 FASE DE ANÁLISIS](#1-fase-de-análisis).
-  - [1.1) PROCEDENCIA DE LOS DATOS](#insertar-hn).
-  - [1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS](#insertar-hn).
-    - [1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
-    - [1.2.2) ESTRUCTURA DE LOS DATOS](#insertar-hn).
-    - [1.2.3) LECTURA DEL DATASET](#insertar-hn).
-    - [1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR](#insertar-hn).
+  - [1.1) PROCEDENCIA DE LOS DATOS](#11-procedencia-de-los-datos).
+  - [1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS](#12-estructuración-de-los-datos-y-estadísticas).
+    - [1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#121-estructura-de-los-archivos).
+    - [1.2.2) ESTRUCTURA DE LOS DATOS](#122-estructura-de-los-datos).
+    - [1.2.3) LECTURA DEL DATASET](#123-lectura-del-dataset-e-importación-de-librerías).
+    - [1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR](#124-estadísticas-básicas-de-variables-a-analizar).
   - [1.3) AGRUPACIÓN DE DATOS](#insertar-hn)
     - [1.3.1) NORMALIZACIÓN DEL DATASET](#insertar-hn).
     - [1.3.2) MATRIZ DE CORRELACIÓN](#insertar-hn).
@@ -172,33 +172,43 @@ OBJECT                   = TABLE
    Para la parte del entrenamiento del modelo KMeans, PCA ... ( MIGUEL COMPLETA ESTO )...
 
    ```python
-   
-       import pandas as pd
-       import numpy as np
-       import os
-       
-       import matplotlib.pyplot as plt
-       from mpl_toolkits.mplot3 import Axes3D
-       %matplotlib inline
-       import seaborn as sns
-       
-       from sklearn.cluster import KMeans
-       from sklearn.decomposition import PCA as sklearnPCA
-       from sklearn.preprocessing import StandardScaler
+	from pyspark import SparkConf, SparkContext
+	from pyspark.sql import SparkSession
+	from pyspark.ml.clustering import KMeans
+	from pyspark.ml.feature import VectorAssembler, PCA, StandardScaler
 
+	import matplotlib.pyplot as plt
+	import seaborn as sns; sns.set()
+	import pandas as pd
+	import prepro
+	import string
+
+	import time
    ```
    Para el servidor, que va a ser el que importe los modelos pre-entrenados:
 
-   ```
-      CODIGO DE IMPORTACION DE LIBRERÍAS DE PYTHON + SPARK PARA EL ARCHIVO .PY DE SERVIDOR
-
+   ```python
+	from pyspark import SparkConf,SparkContext
+	from pyspark.streaming import StreamingContext
+	from pyspark.sql import SQLContext
+	from pyspark.ml.feature import VectorAssembler, PCAModel, StandardScalerModel
+	from pyspark.ml.clustering import KMeansModel
+	
+	import sys
+	import requests
+	import prepro
    ```
 
    Para el código del rover o cliente:
 
-   ```
-     CODIGO DE IMPORTACION DE LIBRERÍAS DE PYTHON + SPARK PARA EL ARCHIVO .PY DEL CLIENTE
-
+   ```python
+	import socket
+	import sys
+	import requests
+	import prepro
+	import time
+	import pandas as pd
+	import numpy as np
    ```
 
    Una vez importadas las librerías en los respectivos archivos, leemos las cabeceras de los archivos .lbl con el código:
@@ -206,7 +216,7 @@ OBJECT                   = TABLE
    
     
      
-   #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR
+   #### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
    
    Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo, máximo y percentiles.
    

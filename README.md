@@ -212,10 +212,11 @@ OBJECT                   = TABLE
    
    ***Variables temporales***:
    *	**SEISMIC_TIME_SOLS**: Podemos ver que los valores mínimos están en 101 y los máximos en valores 1381 soles decimales.
-Observando los percentiles podemos decir que los valores están distribuidos por la normal de forma uniforme.
-	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/tree/master/images/describes/1.png)
+	Observando los percentiles podemos decir que los valores están distribuidos por la normal de forma uniforme.
+	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/1.png)
+	
    *	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
-	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/tree/master/images/describes/2.png)
+	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/2.png)
    *	**WIND_SEISMIC_INTERVAL**: En la documentación se expone que los valores en las ultimas tomas y en las primeras tomas del dataset, no tenía que tenerse en cuenta debido a que los valores eran excesivos.
 	Esto hace que la media y la desviación estándar inicial no pueda usarse.
    	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/tree/master/images/describes/3.png)

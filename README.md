@@ -8,28 +8,28 @@ El propósito clave de nuestro proyecto es un clasificador a tiempo real de dato
 Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
 
 Para todo ello dispondremos el proyectos en diferentes fases.
-	* La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
-		- Como se distribuyen los datos en los diferentes archivos.
-		- Que tipo de datos disponemos.
-		- Qué características tienen esos datos, haciendo uso de estadísticas básicas y distribuciones.
-		- Estandarización o normalización de los datos.
-		- Estudio de correlaciones lineales e introducción en correlaciones no lineales.
-		- Librerías usará cada parte.
-	* La **fase 2** del proyecto será la **preparación de la entrada** del clasificador y su **entrenamiento**.
-		- Subdivisión del dataframe en grupos linealmente independientes.
-		- Aplicación de algorítmo PCA.
-		- Qué algoritmo de clasificación usar y su por qué.
-		- Estudio de los datos de salida del algoritmo de clasificación.
-		- Como exportar el modelo para su uso posterior
-	* La **fase 3** del proyecto será preparar el cliente y el servidor:
-		* Cliente:
-			- Como establecer la conexión.
-			- Como preparar los datos simulados para envíar.
-		* Servidor:
-			- Como establecer la conexión
-			- Como importar el modelo
-			- Como tratar la entrada de datos
-			- Como categorizar en tiempo de flujo real
+* La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
+	- Como se distribuyen los datos en los diferentes archivos.
+	- Que tipo de datos disponemos.
+	- Qué características tienen esos datos, haciendo uso de estadísticas básicas y distribuciones.
+	- Estandarización o normalización de los datos.
+	- Estudio de correlaciones lineales e introducción en correlaciones no lineales.
+	- Librerías usará cada parte.
+* La **fase 2** del proyecto será la **preparación de la entrada** del clasificador y su **entrenamiento**.
+	- Subdivisión del dataframe en grupos linealmente independientes.
+	- Aplicación de algorítmo PCA.
+	- Qué algoritmo de clasificación usar y su por qué.
+	- Estudio de los datos de salida del algoritmo de clasificación.
+	- Como exportar el modelo para su uso posterior
+* La **fase 3** del proyecto será preparar el cliente y el servidor:
+	* Cliente:
+		- Como establecer la conexión.
+		- Como preparar los datos simulados para envíar.
+	* Servidor:
+		- Como establecer la conexión
+		- Como importar el modelo
+		- Como tratar la entrada de datos
+		- Como categorizar en tiempo de flujo real
 	
 		
 

@@ -57,6 +57,11 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por la NASA.
   El enlace que usaremos para descargar los archivos es:
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
+  
+  #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
+  #### 1.2.2) ESTRUCTURA DE LOS DATOS](#insertar-hn).
+  #### 1.2.3) LECTURA DEL DATASET](#insertar-hn).
+  #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR](#insertar-hn).
 
 
   

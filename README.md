@@ -39,7 +39,7 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   
   ##
   ## 1 FASE DE ANÁLISIS
-  ### 1.1 PROCEDENCIA DE LOS DATOS
+  ### 1.1) PROCEDENCIA DE LOS DATOS
   
   El programa Viking fue una de las misiones más ambiciosas lograda por EEUU.
   Dicho programa constaba de dos sondas, cada una de ellas formada por un orbitador y un módulo de aterrizaje. Ambas eran exactamente iguales, por ello que se las denominaran sondas gemelas.
@@ -51,6 +51,13 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   Todo estaba planeado para lograr recopilar datos suficientes a lo largo de 90 días tras el aterrizaje. 
   Al final, los orbitadores lograron transmitir datos hacia el planeta Tierra , una hasta el año 1980 y la otra hasta el 1978.
   Referente a los módulos de aterrizaje, la Viking 1 retransmitió datos a la Tierra hasta el año 1980, y la Viking 2 hasta el 1982.
+  
+  ### 1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS
+  
+  Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por la NASA.
+  El enlace que usaremos para descargar los archivos es:
+  https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
+
 
   
 

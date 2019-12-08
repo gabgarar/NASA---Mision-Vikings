@@ -92,15 +92,15 @@ Para todo ello dispondremos el proyectos en diferentes fases.
    En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
 	
    ***Variables temporales***:
-	*	**SEISMIC_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos sismográficos.
+   *	**SEISMIC_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos sismográficos.
 	Su ecuación es: sol+(hr*3600.0+min*60.0+sec) /88775.0
-	*	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
+   *	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
 	Su ecuación es: sol+(hr*3600.0+min*60.0+sec) /88775.0
-	*	**DATA_ACQUISITION_SOL**: indica en que día marciano (sol) fueron adquiridos los datos, tomando como el sol 0 el día de aterrizaje.
-	*	**DATA_ACQUISITION_HOUR**
-	*	**DATA_ACQUISITION_MINUTE**
-	*	**DATA_ACQUISITION_SECOND**
-	*	**WIND_SEISMIC_INTERVAL**: tiempo en segundos transcurridos entre adquisición de datos de lectura del viento y datos sismográficos. Tomar unicamente cuando este valor sea positivo.
+   *	**DATA_ACQUISITION_SOL**: indica en que día marciano (sol) fueron adquiridos los datos, tomando como el sol 0 el día de aterrizaje.
+   *	**DATA_ACQUISITION_HOUR**
+   *	**DATA_ACQUISITION_MINUTE**
+   *	**DATA_ACQUISITION_SECOND**
+   *	**WIND_SEISMIC_INTERVAL**: tiempo en segundos transcurridos entre adquisición de datos de lectura del viento y datos sismográficos. Tomar unicamente cuando este valor sea positivo.
 
 
 
@@ -109,17 +109,17 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
 
    ***Variables meteorológicas:***
-	*	**WINDSPEED**: velocidad del viento en m/s.
-	*	**PRESSURE**: presión atmosférica en mbar.
-	*	**WIND_DIRECTION**: dirección del viento relativa al viento en grados.
-	*	**AIR_TEMPERATURE**: temperatura del aire en kelvin.
+   *	**WINDSPEED**: velocidad del viento en m/s.
+   *	**PRESSURE**: presión atmosférica en mbar.
+   *	**WIND_DIRECTION**: dirección del viento relativa al viento en grados.
+   *	**AIR_TEMPERATURE**: temperatura del aire en kelvin.
 
    ***Variables sismográficas:***
-	*	**FIRST_X_AXIS**: primera lectura tomada del sismografo en el eje X.
-	*	**MEDIAN_X_AXIS**: La media de valores tomados en el eje X. Cada valor esta medido en digital unit (DU) y se corresponde a 2 nm tomados a 3Hz.
-	*	**MAXIMUM_X_AXIS, MINIMUM_X_AXIS**: valor máximo y mínimo de las lecturas tomadas. Pueden ser tanto valores positivos o negativos, en el eje X.
-	*	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
-	*	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
+   *	**FIRST_X_AXIS**: primera lectura tomada del sismografo en el eje X.
+   *	**MEDIAN_X_AXIS**: La media de valores tomados en el eje X. Cada valor esta medido en digital unit (DU) y se corresponde a 2 nm tomados a 3Hz.
+   *	**MAXIMUM_X_AXIS, MINIMUM_X_AXIS**: valor máximo y mínimo de las lecturas tomadas. Pueden ser tanto valores positivos o negativos, en el eje X.
+   *	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
+   *	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
 
    #### 1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS
      

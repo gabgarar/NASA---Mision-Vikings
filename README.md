@@ -7,7 +7,7 @@
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
 Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
 
-Para todo ello dispondremos el proyectos en diferentes fases.
+Para todo ello dispondremos el proyectos en diferentes fases. ![Ver gráfico super chulo si hace click](https://github.com/gabgarar/NASA---Mision-Vikings/tree/master/images/loli/lel.png)
 * La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
 	- Como se distribuyen los datos en los diferentes archivos.
 	- Que tipo de datos disponemos.
@@ -177,5 +177,5 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
 
    *	**MEAN_X_AXIS_CROSSINGS**: Se puede ver que irá desde 0 hasta los 31. Cuanto más rápido oscile la onda, mayor será el número de pasos por 0.
 	Este tipo de valores puede usarse para el estudio sonoro de fondo para la detección de sonidos, estructuras o efectos en tiempos discretos.
- 	* ![Describe.](./images/describes/7.png)
+ 	![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/tree/master/images/describes/7.png)
    

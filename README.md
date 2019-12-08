@@ -58,10 +58,15 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   El enlace que usaremos para descargar los archivos es:
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
   
-     #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
-     #### 1.2.2) ESTRUCTURA DE LOS DATOS](#insertar-hn).
-     #### 1.2.3) LECTURA DEL DATASET](#insertar-hn).
-     #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR](#insertar-hn).
+      #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
+      Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
+      Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
+      Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.
+      El tercer tipo de archivo lbl, contendrá información sobre el documento al que referencia, que datos tiene de cada columna, en que byte empieza y en cual acaba, y el tipo de datos que contiene.
+
+     #### 1.2.2) ESTRUCTURA DE LOS DATOS
+     #### 1.2.3) LECTURA DEL DATASET
+     #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR
 
 
   

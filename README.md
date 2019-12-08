@@ -58,10 +58,10 @@ Por ello que queramos clasificar qué lecturas son válidas de las que no.
   El enlace que usaremos para descargar los archivos es:
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
   
-  #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
-  #### 1.2.2) ESTRUCTURA DE LOS DATOS](#insertar-hn).
-  #### 1.2.3) LECTURA DEL DATASET](#insertar-hn).
-  #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR](#insertar-hn).
+     #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#insertar-hn).
+     #### 1.2.2) ESTRUCTURA DE LOS DATOS](#insertar-hn).
+     #### 1.2.3) LECTURA DEL DATASET](#insertar-hn).
+     #### 1.2.4) ESTADÍSTICAS BASÍCAS DE VARIABLES A ANALIZAR](#insertar-hn).
 
 
   

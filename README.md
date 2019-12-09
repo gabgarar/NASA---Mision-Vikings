@@ -434,7 +434,7 @@ El algoritmo funciona de la siguiente manera:
 
 Es un algoritmo muy costoso computacionalmente, con una complejidad de O(n^2). Además, por la forma en la que se implementa, requiere comunicación constante entre nodos, lo cual lo hace difícil de paralelizar. Sin embargo, no es imposible, y Spark implementa en su librería una versión paralelizable de este algoritmo.
 
-(JORGE PON LA IMAGEN QUE YO NO SE, LA DEL WORD)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/12.png)
 
 Este gráfico muestra una la mejora experimentada gracias a utilizar una versión paralelizable, en el que se observa que la mejora no es especialmente grande por el problema discutido anteriormente, pero sí bastante significante.
 

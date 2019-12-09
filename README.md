@@ -27,7 +27,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 	- Qué algoritmo de clasificación usar y su por qué.
 	- Estudio de los datos de salida del algoritmo de clasificación.
 	- Como exportar el modelo para su uso posterior
-* La **fase 3** del proyecto será preparar el cliente y el servidor:
+* La **fase 3** del proyecto será **preparar el cliente y el servidor**:
 	* Cliente:
 		- Como establecer la conexión.
 		- Como preparar los datos simulados para envíar.

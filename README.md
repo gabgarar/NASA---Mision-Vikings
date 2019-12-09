@@ -512,6 +512,67 @@ El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el qu
    model = gmm.fit(trainingdata)
 ```
 
+### 3.1) GENERACIÓN Y ENVÍO DE DATOS
+La generación de datos la haremos basadas en las distribuciones normales de cada columna en el dataset original. Para ello, primero vamos a coger las columnas que nos interesan del dataset de la misión Viking y a calcular la media y la desviación típica de estas columnas. 
+```python
+#Devuelve un array con la media y otro con la desviacion tipica de cada columna
+def getNormalDist(df):
+    mean = df.mean() #Media
+    std = df.std() #Desviacion tipica
+    return mean, std
+
+#Cogemos solo las variables con las que se ha entrenado el modelo
+trainVar = ['RMS_X_AXIS_X100', 'WINDSPEED', 'PRESSURE','AIR_TEMPERATURE', 'MEAN_X_AXIS_CROSSINGS', 
+            'MEAN_Y_AXIS_CROSSINGS', 'MEAN_Z_AXIS_CROSSINGS','WIND_DIRECTION']
+
+df = df[trainVar]
+
+#Cogemos las carasteristicas
+mean, std = getNormalDist(df)
+```
+Ahora tenemos que generar los datos. Esto lo haremos con números aleatorios independientes, los cuales generaremos en una distribución normal para cada variable. En codigo lo haremos con la siguiente función:
+```python
+def generaDatosSimulados(df, mean, std, numValues):  
+    df_simulado = pd.DataFrame()
+    headers = df.columns; 
+
+    for i in range(8):
+        data = np.random.randn(numValues)
+        values = data * std[i] + mean[i]
+        values = np.where(values < 0, 0, values)
+
+        df_simulado[headers[i]] = values
+
+    return df_simulado
+```
+Como todos los datos deben ser positivos, los datos que haya generado negativos los pasa a valor absoluto. Además, esta forma de generar los datos no tiene en cuenta las correlaciones complejas entre ellos, como la que habría entre RMS_X_AXIS_X100 y WINDSPEED. Estas dos cosas se podrían mejorar para crear un simulador más fiel a los datos reales. Sin embargo, no creemos necesario realizarlo inmediatamente ya que sólo van a ser datos de simulación que sirvan para comprobar que el procesamiento a tiempo real funciona.
+
+Vamos ahora a establecer una conexión por TCP en el puerto 9012. Una vez esté establecidad, comenzará a enviar datos indefinidamente en intervalos regulares.
+```python
+#Abrimos una conexion TCP por el puerto 9012 
+TCP_IP = "localhost"
+TCP_PORT = 9012
+conn = None
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind((TCP_IP, TCP_PORT))
+s.listen(1)
+
+print("Waiting for TCP connection...")
+conn, addr = s.accept()
+print("Connected... Starting sending data.")
+
+# Una vez establecida la conexion, empezamos a generar datos y a enviarselos al servidor
+while 1:
+    # Generamos datos de 10 en 10 
+    df_simulado = generaDatosSimulados(df, mean, std, 10)
+    data = df_simulado.to_string(index=False, header=False)
+    # Enviamos los datos al servidor
+    send_data_to_spark(data,conn)
+    # Esperamos un tiempo hasta la proxima generacion 
+    time.sleep(10)
+```
+### 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS
+El servidor que se encarga de capturar los datos de una conexión TCP y de clasificarlos va a utilizar Spark. Esto le permitiría trabajar de forma distribuida y con cargas de trabajo muy superiores a la que le someteremos en la simulación.
 
 
 

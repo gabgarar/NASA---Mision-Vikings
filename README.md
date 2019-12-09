@@ -564,6 +564,7 @@ Esto es un problema, ya que esas relaciones que antes buscábamos entre variable
 
 Referente al segundo punto, como todos los datos deben ser positivos, los datos que haya generado negativos los pasa a valor absoluto. 
 
+En nuestro modelo, todo el flujo de datos será en formato TCP.
 Vamos ahora a establecer una conexión por TCP en el puerto 9012. Una vez esté establecidad, comenzará a enviar datos indefinidamente en intervalos regulares.
 ```python
 #Abrimos una conexion TCP por el puerto 9012 
@@ -589,7 +590,104 @@ while 1:
     time.sleep(10)
 ```
 ### 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS
-El servidor que se encarga de capturar los datos de una conexión TCP y de clasificarlos va a utilizar Spark. Esto le permitiría trabajar de forma distribuida y con cargas de trabajo muy superiores a la que le someteremos en la simulación.
+
+La recepción será por parte del servidor, que capturará las tramas y las irá clasificando con el modelo ya entrenado, como se ha visto anteriormente.
+Una vez configurada las variables de contexto, el código de recepción de datos será:
+```python
+# Recibira datos cada 10 seg
+ssc = StreamingContext(sc, 10)
+
+# Guarda la sesion en caso de fallo
+ssc.checkpoint("checkpoint_SismographStream")
+
+# Leemos los datos del puerto 9012 por direccion localhost
+dataStream = ssc.socketTextStream("localhost",9012)
+
+#Indicamos lo que hacemos sobre cada rdd de datos
+dataStream.foreachRDD(process_rdd)
+
+ssc.start()
+
+ssc.awaitTermination()
+```
+
+Ahora deberemos de indicar, que haremos por cada rdd, para ello:
+
+El proceso es muy similar a la parte de entrenamiento del modelo, unicamente que ahora hay que importarlo y usarlo
+
+Lo primero como siempre es arreglar el formato entre linea y linea de datos, por ello:
+
+```python
+if rdd.isEmpty():
+      return
+
+sql_context = get_sql_context_instance(rdd.context)
+
+rdd = rdd.map(lambda line: line.split())
+
+#Hacemos que cada numero se interprete como un float
+rdd = rdd.map(lambda array: [float(x) for x in array])
+
+#Transformamos a dataframe de SPARK, y le metemos como cabecera todas las variables que usamos para entrenas
+    # el modelo
+df = rdd.toDF(headers)
+
+#Agrupamos los datos segun las cabeceras inputCols en una unica columna outpuCol
+assembler = VectorAssembler(inputCols=sisms, outputCol='sisms')
+df = assembler.transform(df)
+
+assembler = VectorAssembler(inputCols=pre_temp, outputCol='pre_temp')
+df = assembler.transform(df)
+
+assembler = VectorAssembler(inputCols=indep, outputCol='indep')
+df = assembler.transform(df)
+```
+Ahora cargamos los modelos tres modelos que entrenamos antes, uno para las variables de rms y viento, otra para presión y temperatura y la última para aquellas independientes, y los aplicamos a los datos.
+Para ello:
+```python
+ #Cargamos el modelo de estandarización entrenado anteriormente para cada grupo
+scaler = StandardScalerModel.load('model/KMScalerSisms.scaler')
+df = scaler.transform(df)
+
+scaler = StandardScalerModel.load('model/KMScalerPreTemp.scaler')
+df = scaler.transform(df)
+
+scaler = StandardScalerModel.load('model/KMScalerIndep.scaler')
+df = scaler.transform(df)
+```
+Ahora ya tenemos los datos de entrada estandarizados, deberemos aplicarles PCA, para reducir variables en este caso de entrenamiento ( Aunque las entradas ya sean linealmente independientes entre si, el modelo fue entrenado con menos variables que las entradas).
+Por ello, importaremos el modelo entrenado de PCA y lo aplicamos:
+```python
+#Cargamos el modelo entrenado de PCA con los datos reales de la mision para aplicar PCA sobre simulados
+
+# Aplicamos pca sobre los datos de RMS y WINDSPEED
+pca = PCAModel.load('model/KMPCAsisms.PCA')
+df = pca.transform(df)
+
+# Aplicamos pca sobre los datos de PRESSURE y AIR_TEMPERATURE
+pca = PCAModel.load('model/KMPCApreTemp.PCA')
+df = pca.transform(df)
+```
+Una vez tenemos los datos, seleccionamos que variables servirán como entrada del modelo y la variable salida del modelo de kmeans( en este caso será features).
+Para ello:
+```python
+assembler = VectorAssembler(
+	inputCols=['sismsNormPCA', 'pre_tempNormPCA', 'indepNorm'],
+	outputCol='features')
+
+#Agregamos la columna features al dataFrame -> Esta variable es la única que toma el modelo de K-Means para entrenar
+df = assembler.transform(df)
+```
+Hasta este momento, todo se ha volcado sobre df.
+Cargamos el modelo de KMeans y lo aplicamos a los datos que ya tenemos
+```python
+# Cargamos el modelo de KMeans entrenado con los datos reales de la mision
+kmeans = KMeansModel.load('model/KM4.model')
+
+# Categorizamos los datos df['features']
+dfTransformed = kmeans.transform(df)
+```
+Y listo.
 
 
 

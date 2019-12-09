@@ -364,5 +364,129 @@ Lo mismo ocurre con las variables temporales.
 
 Estas relaciones no lineales no afectarán en principio al entrenamiento del modelo, aunque estarán metidas de forma indirecta.
 
+## 2 FASE DE MODELADO
+  ### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
+  #### 2.1.1) INTRODUCCIÓN PCA
+  La funcionalidad de aplicar PCA o análisis de componentes principales es describir las características de un conjunto de variables y reducirlas a un conjunto de variables no correlacionadas de dimensiones menores.
+
+  Debido a que para entrenar un modelo no supervisado deberán ser todas sus variables de entrenamiento independientes, deberemos de aplicar a cada subgrupo hecho anteriormente PCA.
+
+  #### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES INDEPENDIENTES
+
+Vamos a crear los grupos y a agruparlos en una sola columna.
+```python
+# Grupo 1 -> Magnitud del sismogrado y la velocidad del viento correlacionadas
+sisms = ['RMS_X_AXIS_X100', 'WINDSPEED']
+
+# Grupo 2 -> Presion y temperatura atmosferica correlacionadas
+pre_temp = ['PRESSURE', 'AIR_TEMPERATURE']
+
+# Variables independientes entre si 
+indep = ['MEAN_X_AXIS_CROSSINGS', 'MEAN_Y_AXIS_CROSSINGS', 'MEAN_Z_AXIS_CROSSINGS','WIND_DIRECTION']
+
+#Agrupamos los datos segun las cabeceras inputCols en una unica columna outpuCol
+assembler = VectorAssembler(inputCols=sisms, outputCol='sisms')
+df = assembler.transform(df)
+
+assembler = VectorAssembler(inputCols=pre_temp, outputCol='pre_temp')
+df = assembler.transform(df)
+
+assembler = VectorAssembler(inputCols=indep, outputCol='indep')
+df = assembler.transform(df)
+```
+
+Una vez tenemos cada grupo de variables en una sola columna, podemos proceder a estandarizar los datos de cada uno de los grupos.
+El modelo de escalado lo guardamos, ya que lo tendremos que utilizar en un futuro para predecir nuevos datos.
+```python
+scaler = StandardScaler(inputCol="sisms", outputCol="sismsNorm")
+scalerModel = scaler.fit(df)
+scalerModel.write().overwrite().save('model/KMScalerSisms.scaler')
+df = scalerModel.transform(df)
+
+scaler = StandardScaler(inputCol="pre_temp", outputCol="pre_tempNorm")
+scalerModel = scaler.fit(df)
+scalerModel.write().overwrite().save('model/KMScalerPreTemp.scaler')
+df = scalerModel.transform(df)
+
+scaler = StandardScaler(inputCol="indep", outputCol="indepNorm")
+scalerModel = scaler.fit(df)
+scalerModel.write().overwrite().save('model/KMScalerIndep.scaler')
+df = scalerModel.transform(df)
+```
+Finalmente procedemos a aplicar PCA a los dos primeros grupos, para dejarlos como una única variable.
+En el dataframe final tendremos todos los datos originales, junto con las variables con PCA y la estandarizacion ya aplicadas.
+
+### 2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS
+  #### 2.2.1) INTRODUCCIÓN
+Los modelos no supervisados permiten buscar patrones entre los datos que tenemos, sin la necesidad de que estos estén etiquetados. Como solo tenemos los datos de entrada y no datos de salida utilizar este tipo de modelo tiene como finalidad describir la estructura de los datos para encontrar algún tipo de organización que simplifique el análisis.
+
+Estos algoritmos también suelen tomar el nombre de algoritmos de clustering, ya que intentan formar grupos (clusters) a partir de los datos con características similares.
+  #### 2.2.2) MODELO K-MEANS
+  ##### 2.2.2.1) INTRODUCCIÓN DEL MODELO K-MEANS
+K-Means es uno de los algoritmos de clustering más populares. Intenta dividir unos datos en k grupos, siendo k un número seleccionado por el usuario, en el cual cada observación pertenece al grupo con la media más cercana.
+
+El algoritmo funciona de la siguiente manera: 
+- Se inicializan los centros de los clusters, por ejemplo, de manera aleatoria.
+- Se hacen varias iteraciones de lo siguiente: Se asigna a cada punto los centroides, cada dato al que tenga más cercano. Una vez hecho esto, se actualizan los centroides calculando la posición promedia de todos los elementos en ese grupo. 
+- Se repite este último paso haya que los centroides apenas se muevan, es decir, se haya alcanzado el resultado óptimo.
+
+Es un algoritmo muy costoso computacionalmente, con una complejidad de O(n^2). Además, por la forma en la que se implementa, requiere comunicación constante entre nodos, lo cual lo hace difícil de paralelizar. Sin embargo, no es imposible, y Spark implementa en su librería una versión paralelizable de este algoritmo.
+
+(JORGE PON LA IMAGEN QUE YO NO SE, LA DEL WORD)
+
+Este gráfico muestra una la mejora experimentada gracias a utilizar una versión paralelizable, en el que se observa que la mejora no es especialmente grande por el problema discutido anteriormente, pero sí bastante significante.
+
+  ##### 2.2.2.2) MODELADO
+Para poder modelar con K-means utilizando las librerias de machine learning que nos proporciona Spark, primero tenemos que agrupar todos los datos de entrenamiento en una columna features.
+
+```python
+assembler = VectorAssembler(
+    inputCols=['sismsNormPCA', 'pre_tempNormPCA', 'indepNorm'],
+    outputCol='features')
+
+trainingData = assembler.transform(df)
+```
+
+A continuación vamos a hacer un bucle que cree el modelo con distintos números de grupos para observar cuál produce un resultado más correcto sin sobreajustarse a los datos.
+Como no tenemos la posibilidad de validar los datos, utilizamos todos los que tenemos para entrenar.
+```python
+#Bucle para probar con distinto numero de grupos
+for i in range(3, 8):
+	#Entrenamos el modelo de Kmeans con un numero de grupos igual a i
+	kmeans = KMeans().setK(i)
+	model = kmeans.fit(trainingData)
+
+	#Computamos el coste del modelo
+	wssse = model.computeCost(trainingData)
+
+	#Guardado del modelo
+	model.write().overwrite().save('model/KM' + str(i) + '.model')
+
+	#Añadimos el coste a los arrays
+	computingCostIndex.append(i)
+	computingCost.append(wssse)
+```
+Como se puede observar en el código, otra de las cosas que hemos hecho es guardar este modelo para futuras predicciones, y añadirlo a unos arrays que utilizaremos para generar gráficas sobre el error según el número de grupos. A continuación clasificamos sobre el mismo dataset con el que hemos entrenado, y guardamos las estadísticas de cada grupo en un documento, para poder analizarlo luego.
+```
+	transformed = model.transform(trainingData)
+
+	describe = transformed
+	for j in range (i):
+		describeGrouped = describe.filter(describe.prediction == j)
+		describeGrouped = describeGrouped.describe()
+		describeGrouped.write.option("header", "true").csv("describe/describe_kmeans_" + str(i) + "/precition_" + str(j) + ".txt", mode="overwrite")
+
+```
+Por último, vamos a generar gráficos que nos permitan visualizar cómo se han dividido los grupos. Esta operación es costosa ya que no está paralelizada.
+```python
+    #Transformamos el dataframe de spark a un dataframe de pandas para poder representarlo
+	pdDF = transformed.toPandas()
+
+	#Creamos varios graficos que ilustren los grupos formados y los guardamos
+	plt.figure()
+	sns_fig = sns.scatterplot(x=pdDF['RMS_X_AXIS_X100'], y=pdDF['SEISMIC_TIME_SOLS'], hue=pdDF['prediction'], linewidth=0, alpha = 0.7, palette=color_dict, legend=False)
+	plt.savefig("images/KM" + str(i) + "_rms_sols.png")
+```
+
 
 

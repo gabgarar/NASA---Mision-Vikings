@@ -375,7 +375,7 @@ Estas relaciones no lineales no afectarán en principio al entrenamiento del mod
 
   Debido a que para entrenar un modelo no supervisado deberán ser todas sus variables de entrenamiento independientes, deberemos de aplicar a cada subgrupo hecho anteriormente PCA.
 
-  #### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES INDEPENDIENTES
+  #### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES
 
 Vamos a crear los grupos y a agruparlos en una sola columna.
 ```python

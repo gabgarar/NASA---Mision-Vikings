@@ -490,5 +490,29 @@ Por último, vamos a generar gráficos que nos permitan visualizar cómo se han 
 	plt.savefig("images/KM" + str(i) + "_rms_sols.png")
 ```
 
+#### 2.2.3) MODELO GMM
+
+##### 2.2.3.1) INTRODUCCIÓN MODELO GMM
+
+El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el que todos los puntos de datos se generan a partir de un número finito de distribuciones gaussianas. La finalidad de usar este tipo de modelos es aproximar o estimar a partir de sus componentes encontrando una similitud respecto a los datos que contiene las componentes.
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/13.png)
+			Ejemplo de uso de GMM a partir de dos componentes.
+
+##### 2.2.3.2) MODELADO
+
+```python
+   #agregamos la columna
+   trainingData = assembler.transform(df)
+   
+   log = open("log.txt", "a+")
+   #Entrenamos el modelo de mezcla gaussiana
+   for i in range (3, 8):
+   	gmm = GaussianMixture().setk(i)
+   model = gmm.fit(trainingdata)
+```
+
+
+
 
 

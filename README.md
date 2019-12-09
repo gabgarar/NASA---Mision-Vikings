@@ -36,7 +36,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
 ## INDICE
 
-- [ 1 FASE DE ANÁLISIS](#1-fase-de-análisis).
+- [ 1) FASE DE ANÁLISIS](#1-fase-de-análisis).
   - [1.1) PROCEDENCIA DE LOS DATOS](#11-procedencia-de-los-datos).
   - [1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS](#12-estructuración-de-los-datos-y-estadísticas).
     - [1.2.1) ESTRUCTURA DE LOS ARCHIVOS](#121-estructura-de-los-archivos).
@@ -49,8 +49,17 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     - [1.3.3) ANÁLISIS DE RELACIONES LINEALES](#insertar-hn).
     - [1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES](#insertar-hn).
   - [1.4) VARIABLES NO RELACIONADAS LINEALMENTE](#insertar-hn)
-   					          
-... COMPLETAR MUAJAJAJAJA NO , TENGO MIEDO, AYUDA U.Us
+  
+- [ 2) FASE DE MODELADO DE ALGORITMOS NO SUPERVISADOS](#2-fase-de-modelado-de-algoritmos-no-supervisados).
+  - [2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES](#21-reducción-de-variables-dependientes-a-independientes).
+    - [2.1.1) INTRODUCCIÓN PCA](#211-introducción-pca).
+    - [2.1.2) APLICACIÓN DE PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES](#212-aplicación-de-pca-sobre-cada-grupo-de-variables-dependientes).
+    - [2.1.3) VALIDACIÓN DE LOS DATOS](#213-validación-de-los-datos).
+  - [2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS](#22-modelos-de-clasificación-no-supervisados).
+    - [2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS](#213-validación-de-los-datos).
+    - [2.2.2) MODELO K-MEANS](#213-validación-de-los-datos).
+    - [2.2.3) MODELOS GMM](#213-validación-de-los-datos).
+
   
   
   ##

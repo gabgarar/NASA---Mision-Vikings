@@ -54,7 +54,6 @@ Para todo ello dispondremos el proyectos en diferentes fases.
   - [2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES](#21-reducción-de-variables-dependientes-a-independientes).
     - [2.1.1) INTRODUCCIÓN PCA](#211-introducción-pca).
     - [2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES](#212-aplicación-pca-sobre-cada-grupo-de-variables-dependientes).
-    - [2.1.3) VALIDACIÓN DE LOS DATOS](#213-validación-de-los-datos).
   - [2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS](#22-modelos-de-clasificación-no-supervisados).
     - [2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS](#221-introducción-modelos-no-supervisados).
     - [2.2.2) MODELO K-MEANS](#222-modelo-k-means).

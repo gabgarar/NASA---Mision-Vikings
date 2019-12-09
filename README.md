@@ -555,8 +555,9 @@ def generaDatosSimulados(df, mean, std, numValues):
     return df_simulado
 ```
 Aquí surgen dos problemas:
-	*	¿Se mantienen las correlaciones entre variables?
-	* 	¿Pueden haber valores negativos?
+
+*	¿Se mantienen las correlaciones entre variables?
+* 	¿Pueden haber valores negativos?
 
 Como se generan datos de cada variable de forma independiente, sin tener en cuenta las demás, las correlaciones que teníamos anteriormente las perdemos.
 Esto es un problema, ya que esas relaciones que antes buscábamos entre variables ya no están. Esto nos afectaría si quisieramos aplicar este dataset como dataset de entrenamiento, pero no es el caso.

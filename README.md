@@ -535,10 +535,11 @@ mean, std = getNormalDist(df)
 Crearemos una función, la cual será usada por el cliente o rover para generar numValues datos.
 Haremos uso de la unidad tipificada para generar datos a través de la desviación típica y la media.
 
-Por ello, generamos numValues datos entre 0 y 1. Una vez tenemos esto, sabemos que la desviación típica por definición nos indica en que magnitud suelen variar los datos de una variable. Multiplicando los datos z(0,1) * std tendremos las desviaciones.
+Por ello,en el siguiente código generamos numValues datos entre 0 y 1. Una vez tenemos esto, sabemos que la desviación típica por definición nos indica en que magnitud suelen variar los datos de una variable. Multiplicando los datos z(0,1) * std tendremos las desviaciones.
 Como los datos ahora están centrados en el valor 0, solo queda sumarle la media mean .
 Así ya tenemos numValues datos situados en una media con una desviación std.
-	values = z(0,1) * std + mean 
+
+values = z(0,1) * std + mean 
 ```python
 def generaDatosSimulados(df, mean, std, numValues):  
     df_simulado = pd.DataFrame()
@@ -553,7 +554,14 @@ def generaDatosSimulados(df, mean, std, numValues):
 
     return df_simulado
 ```
-Como todos los datos deben ser positivos, los datos que haya generado negativos los pasa a valor absoluto. Además, esta forma de generar los datos no tiene en cuenta las correlaciones complejas entre ellos, como la que habría entre RMS_X_AXIS_X100 y WINDSPEED. Estas dos cosas se podrían mejorar para crear un simulador más fiel a los datos reales. Sin embargo, no creemos necesario realizarlo inmediatamente ya que sólo van a ser datos de simulación que sirvan para comprobar que el procesamiento a tiempo real funciona.
+Aquí surgen dos problemas:
+	1.	¿Se mantienen las correlaciones entre variables?
+	2. 	¿Pueden haber valores negativos?
+
+Como se generan datos de cada variable de forma independiente, sin tener en cuenta las demás, las correlaciones que teníamos anteriormente las perdemos.
+Esto es un problema, ya que esas relaciones que antes buscábamos entre variables ya no están. Esto nos afectaría si quisieramos aplicar este dataset como dataset de entrenamiento, pero no es el caso.
+
+Referente al segundo punto, como todos los datos deben ser positivos, los datos que haya generado negativos los pasa a valor absoluto. 
 
 Vamos ahora a establecer una conexión por TCP en el puerto 9012. Una vez esté establecidad, comenzará a enviar datos indefinidamente en intervalos regulares.
 ```python

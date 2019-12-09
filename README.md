@@ -18,13 +18,15 @@
 	*	Hacer un croquis de documentos
 	* 	Quitar o no a la loli ( posible change.org??? )
 	*	Montar una buena fiesta para celebrar la matricula
+	
+***![RICARDITO](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/ricardo.gif)***
 ### INTRODUCCIÓN
 
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
 Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
-
+***![Ver gráfico super chulo si hace click](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/lel.jpg)***
+	
 Para todo ello dispondremos el proyectos en diferentes fases. 
-	***![Ver gráfico super chulo si hace click](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/lel.jpg)***
 * La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
 	- Como se distribuyen los datos en los diferentes archivos.
 	- Que tipo de datos disponemos.

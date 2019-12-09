@@ -294,16 +294,17 @@ Podremos realizarlas en Python con:
 
 El resultado será el siguiente gráfico:
 
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/8.png)
 
-PONER IMAGENES
 
 Es una tabla bastante amplia, pero la usaremos únicamente como visión general a la hora de hacer los grupos.
 Tomaremos los valores como correlacionados fuertemente como 1.0.5 y -0.5…-1, una correlación débil entre 0.3 … 0.5 y -0.5 … -0.3 y sin correlación hasta el 0.
 
 
-		Correlaciones de variables meteorológicas:
+Correlaciones de variables meteorológicas:
 		
-		PONER IMAGEN
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/9.png)
+
 
 Podemos ver que hay una relación inversa entre la temperatura y la presión en un rango de correlación alto.
 También hay una relación directa entre la presión y la variable temporal de adquisición de datos meteorológicos. 
@@ -312,13 +313,15 @@ Habría que discutir más adelante si introducir las variables temporales en el 
 De este conjunto agruparemos únicamente la presión y la temperatura, sin tener 
 en cuenta la variable temporal.
 
-		Correlaciones de variables temporales:
+
+Correlaciones de variables temporales:
 
 Debido a que son escalas temporales, la de segundos, minutos, horas y soles serán independientes entre ellas pero serán dependientes sobre todo de METEO_TIME_SOLS y de SEISMIC_TIME_SOLS debido a que se crean a partir de las mismas.
 
-		Correlaciones de variables sismográficas:
+
+Correlaciones de variables sismográficas:
 		
-		PONER IMAGEN
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/10.png)
 
 Recordemos que el sismógrafo toma lecturas en tres ejes, eje X, eje Y, eje Z. 
 Se ve muy claramente que todas las variables están relacionadas entre ellas fuertemente, y que el valor del viento también les afecta.
@@ -333,7 +336,7 @@ Cada uno de los subgrupos serán independientes entre ellos.
 Como un modelo solo puede tener de entrada variables independientes, aplicaremos PCA a cada subgrupo de variables dependientes para dejarlo en una sola variable.
 En Python referenciaremos a dichas variables con:
 
-PONER IMAGEN
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/11.png)
 
 
 ### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE

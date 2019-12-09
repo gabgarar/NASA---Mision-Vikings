@@ -9,10 +9,15 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ### SOBRE NOSOTROS
 	Trabajo realizado por: 
-	*	Gabriel García García        : gabgarar@gmail.com   alias@gabgarar
-	*	Miguel Ángel Castillo Moreno : ...                  alias@Miguel-ACM
-	*	Jorge García Cerros          : ...     		    alias@JorgeGCrrs			
-
+	*	Gabriel García García        : gabgarar@gmail.com   github@gabgarar
+	*	Miguel Ángel Castillo Moreno : ...                  github@Miguel-ACM
+	*	Jorge García Cerros          : ...     		    github@JorgeGCrrs			
+### COSAS QUE FALTAN POR TERMINAR PARA EL 13/12/2019
+	*	Subir la parte de AWS
+	* 	Subir lo del analisis de grupos clusterizado
+	*	Hacer un croquis de documentos
+	* 	Quitar o no a la loli ( posible change.org??? )
+	*	Montar una buena fiesta para celebrar la matricula
 ### INTRODUCCIÓN
 
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.

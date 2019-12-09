@@ -169,7 +169,7 @@ OBJECT                   = TABLE
    Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
    Lo primero será importar todas las librerías necesarias para nuestro proyecto en spark.
 
-   Para la parte del entrenamiento del modelo KMeans, PCA ... ( MIGUEL COMPLETA ESTO )...
+   Para la parte del entrenamiento del modelo KMeans, PCA 
 
    ```python
 	from pyspark import SparkConf, SparkContext
@@ -255,3 +255,102 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
 	
  ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/7.png)
    
+### 1.3) AGRUPACIÓN DE DATOS
+  
+#### 1.3.1) NORMALIZACIÓN DEL DATASET
+ 
+Nuestro dataset tiene variables que describen efectos diferentes. Cada una tomará una distribución diferente de datos. 
+Para que todas escalen entre los mismos valores, usaremos la normalización o estandarización.
+Para hacerlo en Python:
+
+ ```python
+	#df_norm = (fd -fd.min()) / (fd.max() - fd.min() )
+	df_norm = StandardScaler().fit_transform(fd.astype(float))
+	df_norm = pd.DataFrame(df_norm, columns=fd.columns)
+   ```
+
+#### 1.3.2) MATRIZ DE CORRELACIÓN
+  
+Trataremos de encontrar relaciones lineales entre pares de variables, dejando en dichos pares las demás variables como constantes.
+Esto nos permitirá encontrar relaciones y grupos entre variables.
+
+Debido a que en el modelo de clustering todas las variables de entrada tendrán que ser independientes, deberemos de encontrar grupos en primer lugar para quitar la dependencia entre esas variables.
+Para todo esto haremos uso de las matrices de correlación.
+
+Cada valor tomará valores decimales entre -1 y 1.
+Cuando más se acerque a 0, menos relación lineal habrá entre variables.
+Cuando más se acerque a -1, mas relación inversa habrá entre variables (Al aumentar una, disminuye la otra), y cuando más se acerque al 1, el caso contrario.
+
+Podremos realizarlas en Python con:
+
+  ```python
+	f, ax = plt.subplots(figsize=(20,20))
+	corr=df_norm.corr()
+	sns.heatmap(corr, square=True , cmap=sns.diverging_palette(220, 20, as_cmao=True), ax=ax , annot = True
+   ```
+  
+#### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES ENTRE VARIABLES
+
+
+El resultado será el siguiente gráfico:
+
+
+PONER IMAGENES
+
+Es una tabla bastante amplia, pero la usaremos únicamente como visión general a la hora de hacer los grupos.
+Tomaremos los valores como correlacionados fuertemente como 1.0.5 y -0.5…-1, una correlación débil entre 0.3 … 0.5 y -0.5 … -0.3 y sin correlación hasta el 0.
+
+
+		Correlaciones de variables meteorológicas:
+		
+		PONER IMAGEN
+
+Podemos ver que hay una relación inversa entre la temperatura y la presión en un rango de correlación alto.
+También hay una relación directa entre la presión y la variable temporal de adquisición de datos meteorológicos. 
+Habría que discutir más adelante si introducir las variables temporales en el modelo, ya que las variables al fin y al cabo varían según este, pero no todas de forma lineal como lo hace la presión, por lo que puede sesgar el modelo.
+	
+De este conjunto agruparemos únicamente la presión y la temperatura, sin tener 
+en cuenta la variable temporal.
+
+		Correlaciones de variables temporales:
+
+Debido a que son escalas temporales, la de segundos, minutos, horas y soles serán independientes entre ellas pero serán dependientes sobre todo de METEO_TIME_SOLS y de SEISMIC_TIME_SOLS debido a que se crean a partir de las mismas.
+
+		Correlaciones de variables sismográficas:
+		
+		PONER IMAGEN
+
+Recordemos que el sismógrafo toma lecturas en tres ejes, eje X, eje Y, eje Z. 
+Se ve muy claramente que todas las variables están relacionadas entre ellas fuertemente, y que el valor del viento también les afecta.
+Esto quiere decir que los valores del viento afectan de forma lineal a los valores tomados del sismógrafo.
+		
+
+#### 1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES
+
+Una vez hecho el estudio de correlaciones, dividiremos el dataset en pequeños subgrupos.
+Todas las variables dentro de cada subgrupo estarán dentro de un grado de correlación, relacionada entre ellas.
+Cada uno de los subgrupos serán independientes entre ellos.
+Como un modelo solo puede tener de entrada variables independientes, aplicaremos PCA a cada subgrupo de variables dependientes para dejarlo en una sola variable.
+En Python referenciaremos a dichas variables con:
+
+PONER IMAGEN
+
+
+### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE
+
+Para tratar sobre la atmósfera de Marte y poder analizarla, deberemos de considerar ciertos valores como la temperatura, la presión y la velocidad del viento.
+
+El aire, el cual está formado de materia y gases, que compone la atmósfera ejerce una presión sobre los objetos de la superficie. Cuanto más pese el aire, más presión ejercerá sobre la superficie. A esta presión se la denomina presión atmosférica, y se mide a partir de un barómetro. Sus unidades de medición pueden ser en bares o en pascales entre otras.
+Dicha presión atmosférica disminuye al aumento de altitud, la humedad y la temperatura. 
+Al variar esta presión atmosférica se produce las corrientes de aire. Esto es debido a que al ejercer el aire más peso en un lugar que en otro, hace que exista un movimiento de materia y gases en la atmósfera, produciendo en tanto una corriente.
+
+En Marte, la presión atmosférica es muy baja. Unas 120 veces más baja que la de la Tierra. Por ello que se necesite una mayor velocidad de viento para poder levantar polvo. Aunque en la Tierra se necesite una velocidad de unos 50/60 km/h, en Marte se necesitará unos 150-200 km/h. Esto también afecta en gran modo a las vibraciones sobre el módulo.
+Surge una duda entonces de todo, ¿Cómo puede ser que exista velocidades de viento tan altas con una presión tan baja en Marte?
+Esto es debido a esas variaciones tan grandes de temperaturas al día, ya que pueden varias de unos 10ºC a -100ºC al día.
+Tras todo esto, aunque aparezcan que el viento sea independiente de la presión y la temperatura en el estudio de correlaciones, están relacionadas de una forma no lineal.
+Lo mismo ocurre con las variables temporales.
+
+Estas relaciones no lineales no afectarán en principio al entrenamiento del modelo, aunque estarán metidas de forma indirecta.
+
+
+

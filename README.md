@@ -58,8 +58,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     - [2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS](#221-introducción-modelos-no-supervisados).
     - [2.2.2) MODELO K-MEANS](#222-modelo-k-means).
       - [2.2.2.1) INTRODUCCIÓN DEL MODELO K-MEANS](#2221-introducción-del-modelo-k-means).
-      - [2.2.2.2) DETERMINACIÓN DE K](#2222-determinación-de-k).
-      - [2.2.2.3) MODELADO](#2223-modelado).
+      - [2.2.2.2) MODELADO](#2222-modelado).
     - [2.2.3) MODELOS GMM](#213-validación-de-los-datos).
       - [2.2.3.1) INTRODUCCIÓN MODELO GMM](#2231-introducción-modelo-gmm).
       - [2.2.3.2) MODELADO](#2232-modelado).

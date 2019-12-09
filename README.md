@@ -420,7 +420,7 @@ Finalmente procedemos a aplicar PCA a los dos primeros grupos, para dejarlos com
 En el dataframe final tendremos todos los datos originales, junto con las variables con PCA y la estandarizacion ya aplicadas.
 
 ### 2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS
-  #### 2.2.1) INTRODUCCIÓN
+  #### 2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS
 Los modelos no supervisados permiten buscar patrones entre los datos que tenemos, sin la necesidad de que estos estén etiquetados. Como solo tenemos los datos de entrada y no datos de salida utilizar este tipo de modelo tiene como finalidad describir la estructura de los datos para encontrar algún tipo de organización que simplifique el análisis.
 
 Estos algoritmos también suelen tomar el nombre de algoritmos de clustering, ya que intentan formar grupos (clusters) a partir de los datos con características similares.

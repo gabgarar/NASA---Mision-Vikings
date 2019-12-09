@@ -419,6 +419,7 @@ Finalmente procedemos a aplicar PCA a los dos primeros grupos, para dejarlos com
 En el dataframe final tendremos todos los datos originales, junto con las variables con PCA y la estandarizacion ya aplicadas.
 
 ### 2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS
+
   #### 2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS
 Los modelos no supervisados permiten buscar patrones entre los datos que tenemos, sin la necesidad de que estos estén etiquetados. Como solo tenemos los datos de entrada y no datos de salida utilizar este tipo de modelo tiene como finalidad describir la estructura de los datos para encontrar algún tipo de organización que simplifique el análisis.
 
@@ -513,6 +514,7 @@ El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el qu
 ```
 
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
+Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.
 La generación de datos la haremos basadas en las distribuciones normales de cada columna en el dataset original. Para ello, primero vamos a coger las columnas que nos interesan del dataset de la misión Viking y a calcular la media y la desviación típica de estas columnas. 
 ```python
 #Devuelve un array con la media y otro con la desviacion tipica de cada columna
@@ -530,7 +532,13 @@ df = df[trainVar]
 #Cogemos las carasteristicas
 mean, std = getNormalDist(df)
 ```
-Ahora tenemos que generar los datos. Esto lo haremos con números aleatorios independientes, los cuales generaremos en una distribución normal para cada variable. En codigo lo haremos con la siguiente función:
+Crearemos una función, la cual será usada por el cliente o rover para generar numValues datos.
+Haremos uso de la unidad tipificada para generar datos a través de la desviación típica y la media.
+
+Por ello, generamos numValues datos entre 0 y 1. Una vez tenemos esto, sabemos que la desviación típica por definición nos indica en que magnitud suelen variar los datos de una variable. Multiplicando los datos z(0,1) * std tendremos las desviaciones.
+Como los datos ahora están centrados en el valor 0, solo queda sumarle la media mean .
+Así ya tenemos numValues datos situados en una media con una desviación std.
+	values = z(0,1) * std + mean 
 ```python
 def generaDatosSimulados(df, mean, std, numValues):  
     df_simulado = pd.DataFrame()

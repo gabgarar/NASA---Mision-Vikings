@@ -1,6 +1,11 @@
 
 # ANALISIS DE DATOS SISMOGRÁFICOS PROCEDENTES DE LA MISIÓN VIKING
 
+### SOBRE NOSOTROS
+	Trabajo realizado por: 
+	*	Gabriel García García        : gabgarar@gmail.com   alias@gabgarar
+	*	Miguel Ángel Castillo Moreno : ...                  alias@Miguel-ACM
+	*	Jorge García Cerros          : ...     		    alias@JorgeGCrrs			
 
 ### INTRODUCCIÓN
 

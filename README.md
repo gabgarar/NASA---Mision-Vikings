@@ -9,15 +9,15 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ### SOBRE NOSOTROS
 	Trabajo realizado por: 
-	*	Gabriel García García        : gabgarar@gmail.com   github@gabgarar
-	*	Miguel Ángel Castillo Moreno : ...                  github@Miguel-ACM
-	*	Jorge García Cerros          : ...     		    github@JorgeGCrrs			
+	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
+	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
+	*	Jorge García Cerros          : jorge_ATLM@hotmail.com			github@JorgeGCrrs			
 ### COSAS QUE FALTAN POR TERMINAR PARA EL 13/12/2019
-	*	Subir la parte de AWS
 	* 	Subir lo del analisis de grupos clusterizado
+	*	La fuckin presentación
 	*	Hacer un croquis de documentos
-	* 	Quitar o no a la loli ( posible change.org??? )
-	*	Montar una buena fiesta para celebrar la matricula
+	* 	Quitar a la loli
+	*	Bailarse un buen cumbiote para celebrar la matricula
 	
 ***![RICARDITO](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/ricardo.gif)***
 ### INTRODUCCIÓN
@@ -80,7 +80,13 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     - [2.2.3) MODELO GMM](#223-modelo-gmm).
       - [2.2.3.1) INTRODUCCIÓN MODELO GMM](#2231-introducción-modelo-gmm).
       - [2.2.3.2) MODELADO](#2232-modelado).
+- [ 3) FASE DE CLASIFICACIÓN A TIEMPO REAL](#3-fase-de-clasificación-a-tiempo-real).
+  - [ 3.1) GENERACIÓN Y ENVÍO DE DATOS](#31-generación-y-envío-de-datos).
+  - [ 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS](#32-recepción-y-clasificación-de-datos).
+- [ 4) PRUEBA DE RENDIMIENTO EN AWS](#4-prueba-de-rendimiento-en-aws).
+  - [ 4.1) COMPARACIÓN DE RESULTADOS](#41-comparación-de-resultados).
   
+  ### 4.1) COMPARACIÓN DE RESULTADOS
   
   ##
   ## 1 FASE DE ANÁLISIS
@@ -530,7 +536,7 @@ El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el qu
    	gmm = GaussianMixture().setk(i)
    model = gmm.fit(trainingdata)
 ```
-
+## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
 Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.
 La generación de datos la haremos basadas en las distribuciones normales de cada columna en el dataset original. Para ello, primero vamos a coger las columnas que nos interesan del dataset de la misión Viking y a calcular la media y la desviación típica de estas columnas. 
@@ -707,6 +713,68 @@ dfTransformed = kmeans.transform(df)
 ```
 Y listo.
 
+## 4) PRUEBA DE RENDIMIENTO EN AWS
+
+Ahora vamos a probar a ejecutar el modelo de entrenamiento de k-means en un cluster de Amazon Web Services. Para ello, vamos a utilizar 3 máquinas (1 master y 2 slaves) m4xlarge. Las especificaciones de estas máquinas son las siguientes:
+ - Procesadores Intel Xeon® E5-2686 v4 (Broadwell) de 2,3 GHz o Intel Xeon® E5-2676 v3 (Haswell) de 2,4 GHz
+ - 4 CPUs virtuales.
+ - 16 GiB de memoria
+ - Almacenamiento por EBS
+ - 750 Mbps de ancho de banda de EBS dedicado
+ - REndimiento de red "alto"
+
+Creamos un cluster de ElasticMapReduce con las 3 máquinas descritas y la siguiente configuración de software:
+
+(AQUI LA FOTO DE LAS MAQUINAS JORGE, QUE SIGO SIN SABER HACERLO Y SIN GANAS DE APRENDER :) )
+
+Respecto a los cambios en el código, estos son mínimos para poder utilizarlo en el cluster. Subiríamos la carpeta nasa junto a la carpeta spark al servidor master, y en el archivo kmeans_classification.py cambiariamos la siguiente linea:
+```python
+#Cogemos los datos del archivo
+RDDvar = sc.textFile("../nasa/event/event_wind_summary/event_wind_summary.tab")
+```
+Por esta:
+```python
+#Cogemos los datos del archivo
+RDDvar = sc.textFile("event_wind_summary.tab")
+```
+Esto se hace porque spark va a cargar el fichero que contiene los datos del sistema de ficheros de hadoop. Es por ello por lo que tenemos que ejecutar la siguiente sentencia (desde la carpeta nasa/event/event_wind_summary) para subir el archivo y que pueda encontrarlo:
+```bash
+hadoop fs -put event_wind_summary.tab event_wind_summary.tab
+```
+Otras cosas que hay que hacer antes de ejecutar son:
+- Instalar seaborn en el master. No hace falta instalarlo en los slaves ya que la generación de los gráficos no está paralelizada. Podemos hacerlo con:
+```bash
+sudo pip --python-version 3.6 install seaborn
+```
+- Asegurarnos de que Spark va a utilizar la versión 3.6 de python. Pdemos hacerlo con:
+# TENGO QUE MIRAR QUE DE VERDAD HICE ESTO, EN CASA LO HAGO
+```bash
+export PYSPARK_PYTHON=/usr/bin/python3.6 
+```
+Con esto hecho, ya podemos ejecutar el código, que generará en master las imágenes en la carpeta spark/images, y los modelos y describes en el sistema de ficheros de hadoop. La ejecución se realiza con:
+```bash
+spark-submit kmeans_classification_cluster.py
+```
+
+### 4.1) COMPARACIÓN DE RESULTADOS
+# DIOS TENGO QUE SUBIR EL CÓDIGO SOY UNA BASURA
+Gracias a loguear algunos tiempos podemos ver cómo lo hace el cluster con respecto a la ejecución local.
+Para la comparación, en local se ha hecho con las siguientes especificaciones.
+ 
+ - Una máquina virtual de Ubuntu 18.04
+ - Procesador Intel i5-6500K, 4 cores, 3.2 GHz.
+ - Memoria de 8Gb, DDR4, 2033MHz
+
+Hemos comprobado 2 cosas con estas pruebas:
+ 
+ - El tiempo que tarda en el preprocesado (Estandarización, combinación de columnas y PCA)
+ - El tiempo que tarda en realizar k-means con 3, 4 y 5 grupos.
+ 
+ Los siguientes gráficos muestran los resultados obtenidos:
+
+(IMAGENES COMPARANDO JORGE TE AMO)
+
+Como se puede observar, los resultados de cluster son *peores* que los obtenidos en local. Todos los procesos tardan aproximadamente 5 segundos más. Esto se debe probablemente al tamaño pequeño del dataset, de tan solo 40Mb. Al ser tan pequeño, el sobrecoste de las comunicaciones entre las máquinas es mayor que la acelaración que se produce al tener mayor número de procesadores. Esto es especialmente cierto para el proceso de kmeans, ya que la comunicación entre las máquinas es constante, y sin un dataset grande no se obtienen mejoras de rendimiento notables.
 
 
 

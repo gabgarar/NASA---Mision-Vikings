@@ -80,6 +80,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     - [2.2.3) MODELO GMM](#223-modelo-gmm).
       - [2.2.3.1) INTRODUCCIÓN MODELO GMM](#2231-introducción-modelo-gmm).
       - [2.2.3.2) MODELADO](#2232-modelado).
+    - [2.2.4) ANÁLISIS DE RESULTADOS](#224-análisis-de-resultados)
 - [ 3) FASE DE CLASIFICACIÓN A TIEMPO REAL](#3-fase-de-clasificación-a-tiempo-real).
   - [ 3.1) GENERACIÓN Y ENVÍO DE DATOS](#31-generación-y-envío-de-datos).
   - [ 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS](#32-recepción-y-clasificación-de-datos).
@@ -549,7 +550,23 @@ A continuación vamos a hacer un bulce en el que se creará varios modelos para 
 ```
 Para mostrar el gráfico generado se hará de la misma manera con la que se genera el grafico en el modelo de K-Means en el apartado 2.2.2.2).
 
+#### 2.2.4) ANÁLISIS DE RESULTADOS:
 
+El análisis de resultados lo haremos en función del viento. Lo que queremos encontrar son patrones entre las lecturas del sismógrafo y la velocidad del viento.
+
+Empecemos analizando los resultados de nuestro algoritmo de clustering cuando la velocidad del viento sea menor que 1m/s. Veamos como se comporta el sismógrafo cuando no existe.
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.png)
+
+Podemos comprobar que los TAG 1,2 y3 se mantienen constantes, mientras que el 0, en color rojo, son los valores anormales.
+Para terminar de analizar este subgrupo, usaremos las estadísticas básicas.
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less1.png)
+
+
+
+
+Viendo el gráfico, vemos que los datos en rojo 
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
 Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.

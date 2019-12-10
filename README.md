@@ -552,21 +552,30 @@ Para mostrar el gráfico generado se hará de la misma manera con la que se gene
 
 #### 2.2.4) ANÁLISIS DE RESULTADOS:
 
-El análisis de resultados lo haremos en función del viento. Lo que queremos encontrar son patrones entre las lecturas del sismógrafo y la velocidad del viento.
+El análisis de resultados lo haremos en función del viento. Lo que queremos encontrar son patrones entre las lecturas del sismógrafo y la velocidad del viento junto a otras variables.
 
+##### 2.2.4.1) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 1 M/S
 Empecemos analizando los resultados de nuestro algoritmo de clustering cuando la velocidad del viento sea menor que 1m/s. Veamos como se comporta el sismógrafo cuando no existe.
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.PNG)
 
 Podemos comprobar que los TAG 1,2 y3 se mantienen constantes, mientras que el 0, en color rojo, son los valores anormales.
 Para terminar de analizar este subgrupo, usaremos las estadísticas básicas.
+En la superior tenemos las estadísticas, y en la inferior el número de lecturas de cada categoría.
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less1.PNG)
 
+Se puede observar, como se ha indicado antes, que los TAGS 1, 2 y 3, tienen estadísticas similares.
+En este analisis, la velocidad del viento y los cruces ceros se mantienen constantes en todos los grupos.
+Nos fijamos entonces en que cuanto menor presión y mayor temperatura del aire, mayor lecturas del sismógrafo. Esto se ve en los TAGs 0 y 3. 
+En referencia al número de lecturas, vemos que el algoritmo tiene en cuenta sobre todo, el RMS_X a la hora de clasificar.
+
+##### 2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 50 M/S
 
 
+##### 2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MAYOR A 50 M/S
 
-Viendo el gráfico, vemos que los datos en rojo 
+
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
 Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.

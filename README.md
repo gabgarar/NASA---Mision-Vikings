@@ -11,7 +11,7 @@
 	Trabajo realizado por: 
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
-	*	Jorge García Cerros          : jorge_ATLM@hotmail.com			github@JorgeGCrrs			
+	*	Jorge García Cerros          : jorge_atlm@hotmail.com			github@JorgeGCrrs			
 ### COSAS QUE FALTAN POR TERMINAR PARA EL 13/12/2019
 	* 	Subir lo del analisis de grupos clusterizado
 	*	La fuckin presentación

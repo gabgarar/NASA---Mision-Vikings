@@ -556,12 +556,12 @@ El análisis de resultados lo haremos en función del viento. Lo que queremos en
 
 Empecemos analizando los resultados de nuestro algoritmo de clustering cuando la velocidad del viento sea menor que 1m/s. Veamos como se comporta el sismógrafo cuando no existe.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.png)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.PNG)
 
 Podemos comprobar que los TAG 1,2 y3 se mantienen constantes, mientras que el 0, en color rojo, son los valores anormales.
 Para terminar de analizar este subgrupo, usaremos las estadísticas básicas.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less1.png)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less1.PNG)
 
 
 

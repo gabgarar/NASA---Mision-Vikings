@@ -9,6 +9,7 @@ import pandas as pd
 import prepro
 import string
 
+from os import path
 import time
 
 #######################################################################################################
@@ -23,10 +24,18 @@ conf = SparkConf().setMaster('local[*]').setAppName('Clustering')
 sc = SparkContext(conf = conf)
 spark = SparkSession.builder.master("local").appName("Clustering").getOrCreate()
 
+
 #Leemos las cabeceras de cada columna
-headers = prepro.read_headers("../nasa/event/event_wind_summary/event_wind_summary.lbl.txt")
+basepath = path.dirname(__file__)
+filepath = path.abspath(path.join(basepath, "..", "nasa", "event", "event_wind_summary", "event_wind_summary.lbl.txt"))
+headers = prepro.read_headers(filepath)
+
+#Creamos un log que va a registrar los tiempos de ejecucion
+log = open("log.txt", "a+")
+start_time = time.time()
 
 #Cogemos los datos del archivo
+filepath = path.abspath(path.join(basepath, "..", "nasa", "event", "event_wind_summary", "event_wind_summary.tab"))
 RDDvar = sc.textFile("../nasa/event/event_wind_summary/event_wind_summary.tab")
 
 #Separamos cada numero de la linea
@@ -101,6 +110,7 @@ assembler = VectorAssembler(
     outputCol='features')
 
 trainingData = assembler.transform(df)
+log.write("--- Preprocessing time: %s seconds ---\n" % (time.time() - start_time))
 
 #Creamos un par de arrays que guarden el coste de cada modelo para poder
 #represemtar graficamente luego
@@ -119,7 +129,8 @@ color_dict = dict({0:'tomato',
                   8: 'lightpink'})
 
 #Bucle para probar con distinto numero de grupos
-for i in range(4, 5):
+for i in range(5, 6):
+	start_time = time.time()
 	#Entrenamos el modelo de Kmeans con un numero de grupos igual a i
 	kmeans = KMeans().setK(i)
 	model = kmeans.fit(trainingData)
@@ -137,6 +148,8 @@ for i in range(4, 5):
 	#Aniadimos la prediccion con el modelo entrenado
 	#anteriormente a nuestros datos
 	transformed = model.transform(trainingData)
+
+	log.write("--- Kmeans %i groups: %s seconds ---\n" % (i, (time.time() - start_time)))
 
 	#Creamos archivos con los datos estadisticos de cada grupo 
 	#para su posterior analisis
@@ -167,4 +180,3 @@ plt.plot(computingCostIndex, computingCost, '-')
 plt.ylabel('Within set sum of squared errors')
 plt.xlabel('Number of clusters')
 plt.savefig("images/codo.png")
-

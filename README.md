@@ -522,9 +522,18 @@ Por último, vamos a generar gráficos que nos permitan visualizar cómo se han 
 El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el que todos los puntos de datos se generan a partir de un número finito de distribuciones gaussianas. La finalidad de usar este tipo de modelos es aproximar o estimar a partir de sus componentes encontrando una similitud respecto a los datos que contiene las componentes.
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/13.png)
-			Ejemplo de uso de GMM a partir de dos componentes.
+
+Ejemplo de uso de GMM a partir de dos componentes.
 
 ##### 2.2.3.2) MODELADO
+
+Para modelar usando GMM debemos incluir la siguiente librería
+
+```python
+   from pyspark.ml.clustering import GaussianMixture
+```
+
+A continuación vamos a hacer un bulce en el que se creará varios modelos para GMM y los entrenaremos para posteriormente ver los resultados obtenidos de dicho entrenamiento.
 
 ```python
    #agregamos la columna
@@ -538,6 +547,8 @@ El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el qu
 	
    transformed = model.transform(trainingData)
 ```
+Para mostrar el gráfico generado se hará de la misma manera con la que se genera el grafico en el modelo de K-Means en el apartado 2.2.2.2).
+
 
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS

@@ -774,8 +774,9 @@ Hemos comprobado 2 cosas con estas pruebas:
  - El tiempo que tarda en realizar k-means con 3, 4 y 5 grupos.
  
  Los siguientes gráficos muestran los resultados obtenidos:
-
-(IMAGENES COMPARANDO JORGE TE AMO)
+ 
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/cluster.png)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/local.png)
 
 Como se puede observar, los resultados de cluster son *peores* que los obtenidos en local. Todos los procesos tardan aproximadamente 5 segundos más. Esto se debe probablemente al tamaño pequeño del dataset, de tan solo 40Mb. Al ser tan pequeño, el sobrecoste de las comunicaciones entre las máquinas es mayor que la acelaración que se produce al tener mayor número de procesadores. Esto es especialmente cierto para el proceso de kmeans, ya que la comunicación entre las máquinas es constante, y sin un dataset grande no se obtienen mejoras de rendimiento notables.
 

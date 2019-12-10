@@ -534,8 +534,11 @@ El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el qu
    #Entrenamos el modelo de mezcla gaussiana
    for i in range (3, 8):
    	gmm = GaussianMixture().setk(i)
-   model = gmm.fit(trainingdata)
+  	model = gmm.fit(trainingdata)
+	
+   transformed = model.transform(trainingData)
 ```
+
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
 Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.

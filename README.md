@@ -16,7 +16,7 @@
 	* 	Subir lo del analisis de grupos clusterizado
 	*	La fuckin presentación
 	*	Hacer un croquis de documentos
-	* 	Quitar a la loli
+	* 	Oops se perdió la loli
 	*	Bailarse un buen cumbiote para celebrar la matricula
 	
 ***![RICARDITO](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/ricardo.gif)***
@@ -24,7 +24,6 @@
 
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
 Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
-***![Ver gráfico super chulo si hace click](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/lel.jpg)***
 	
 Para todo ello dispondremos el proyectos en diferentes fases. 
 * La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
@@ -61,12 +60,12 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     - [1.2.2) ESTRUCTURA DE LOS DATOS](#122-estructura-de-los-datos).
     - [1.2.3) LECTURA DEL DATASET](#123-lectura-del-dataset-e-importación-de-librerías).
     - [1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR](#124-estadísticas-básicas-de-variables-a-analizar).
-  - [1.3) AGRUPACIÓN DE DATOS](#insertar-hn)
-    - [1.3.1) NORMALIZACIÓN DEL DATASET](#insertar-hn).
-    - [1.3.2) MATRIZ DE CORRELACIÓN](#insertar-hn).
-    - [1.3.3) ANÁLISIS DE RELACIONES LINEALES](#insertar-hn).
-    - [1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES](#insertar-hn).
-  - [1.4) VARIABLES NO RELACIONADAS LINEALMENTE](#insertar-hn)
+  - [1.3) AGRUPACIÓN DE DATOS](#13-agrupación-de-datos)
+    - [1.3.1) NORMALIZACIÓN DEL DATASET](#131-normalización-del-dataset).
+    - [1.3.2) MATRIZ DE CORRELACIÓN](#132-matriz-de-correlación).
+    - [1.3.3) ANÁLISIS DE CORRELACIONES LINEALES](#133-análisis-de-correlaciones-lineales).
+    - [1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES](#134-agrupación-de-variables-como-grupos-independientes).
+  - [1.4) VARIABLES NO RELACIONADAS LINEALMENTE](#14-variables-no-correlacionales-linealmente)
   
 - [ 2) FASE DE MODELADO DE ALGORITMOS NO SUPERVISADOS](#2-fase-de-modelado-de-algoritmos-no-supervisados).
   - [2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES](#21-reducción-de-variables-dependientes-a-independientes).
@@ -325,7 +324,7 @@ Podremos realizarlas en Python con:
 	sns.heatmap(corr, square=True , cmap=sns.diverging_palette(220, 20, as_cmao=True), ax=ax , annot = True
    ```
   
-#### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES ENTRE VARIABLES
+#### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES
 
 
 El resultado será el siguiente gráfico:
@@ -765,7 +764,7 @@ Ahora vamos a probar a ejecutar el modelo de entrenamiento de k-means en un clus
 
 Creamos un cluster de ElasticMapReduce con las 3 máquinas descritas y la siguiente configuración de software:
 
-(AQUI LA FOTO DE LAS MAQUINAS JORGE, QUE SIGO SIN SABER HACERLO Y SIN GANAS DE APRENDER :) )
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/utils/AWSsoftwareConfig.png)
 
 Respecto a los cambios en el código, estos son mínimos para poder utilizarlo en el cluster. Subiríamos la carpeta nasa junto a la carpeta spark al servidor master, y en el archivo kmeans_classification.py cambiariamos la siguiente linea:
 ```python
@@ -786,18 +785,16 @@ Otras cosas que hay que hacer antes de ejecutar son:
 ```bash
 sudo pip --python-version 3.6 install seaborn
 ```
-- Asegurarnos de que Spark va a utilizar la versión 3.6 de python. Pdemos hacerlo con:
-# TENGO QUE MIRAR QUE DE VERDAD HICE ESTO, EN CASA LO HAGO
+- Asegurarnos de que Spark va a utilizar la versión 3.6 de python. Podemos hacerlo con:
 ```bash
 export PYSPARK_PYTHON=/usr/bin/python3.6 
 ```
 Con esto hecho, ya podemos ejecutar el código, que generará en master las imágenes en la carpeta spark/images, y los modelos y describes en el sistema de ficheros de hadoop. La ejecución se realiza con:
 ```bash
-spark-submit kmeans_classification_cluster.py
+spark-submit --num-executors 2 --executor-cores 4 kmeans_classification_cluster.py 
 ```
 
 ### 4.1) COMPARACIÓN DE RESULTADOS
-# DIOS TENGO QUE SUBIR EL CÓDIGO SOY UNA BASURA
 Gracias a loguear algunos tiempos podemos ver cómo lo hace el cluster con respecto a la ejecución local.
 Para la comparación, en local se ha hecho con las siguientes especificaciones.
  

@@ -585,8 +585,55 @@ Viendo la siguiente tabla:
 *	Cuanto menor presión del aire, sigue estando una mayor temperatura
 *	En el TAG 2, donde las lecturas del sismógrafo son mayores, la media de la velocidad del viento también aumenta respecto a los 	demás.
 
-##### 2.2.4.3) 
+##### 2.2.4.3) CONCLUSIONES FINALES Y PARA FUTURO
 
+Según los datos anteriores, podemos entonces tomar como datos fiables todos los TAGs 0, 1 y 3 para futuras misiones y como no fiables el TAG 2, ya que necesita un análisis posterior.
+
+Debido a que la cantidad de TAG 2 son alrededor de 20.000 lecturas, en un futuro podríamos estudiarlo con spark.
+Para hacer el modelo mas sencillo, y sacar conclusiones sobre estos datos, esta parte lo haremos con python.
+El proceso es el mismo que el anterior, unicamente que tomamos como dataset de entrada los valores de TAG 2, y le aplicamos nuevamente un algortimo de clustering de 3 grupos.
+
+El código para lograrlo será:
+``` python
+pr = fd[fd.TAG_KM == 2]
+pr_norm = StandardScaler().fit_transform(pr.astype(float))
+pr_norm= pd.DataFrame(pr_norm, columns=pr.columns)
+
+# Indicamos el numero de columnas que tiene que salir 
+sklearn_pca = sklearnPCA(n_components=1)
+
+# Aplicamos PCA para los dos conjuntos que hemos hecho a partir de analisis de correlaciones
+datos_pca_gp_1_pr = sklearn_pca.fit_transform(pr_norm[gp_1])
+datos_pca_gp_2_pr = sklearn_pca.fit_transform(pr_norm[gp_2])
+
+# Unimos para formar el dataset de entrenamiento del algoritmo de clustering
+
+core_pr = pr_norm[gp_3]; 
+core_pr['sismo'] = datos_pca_gp_1_pr; 
+core_pr['pre_temp'] = datos_pca_gp_2_pr; 
+core_pr[core_pr == np.nan].count()
+
+# Entrenamos el modelo
+model_kmeans_pr = KMeans(n_clusters=3).fit(core_pr)
+
+# Sacamos los centroides
+centroids_pr = model_kmeans_pr.cluster_centers_
+
+# Sacamos los tags del dataset
+labels_pr = model_kmeans_pr.predict(core_pr)
+
+pr["TAG_KM"] = labels_pr; 
+```
+
+Una vez tenemos el dataset con los labels o TAG, unicamente será mostrar los resultados en forma de gráfica y de estadísticos.
+
+El gráfico será:
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less3.PNG)
+
+Y los estadísticos:
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less3.PNG)
 
 
 

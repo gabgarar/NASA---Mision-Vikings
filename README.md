@@ -553,6 +553,10 @@ Para mostrar el gráfico generado se hará de la misma manera con la que se gene
 
 #### 2.2.4) ANÁLISIS DE RESULTADOS:
 
+**Hay que tener especial cuidado en:**
+Cada vez que entrenas el modelo de KMeans, los grupos serán los mismos pero la enumeración cambiará.
+En este análisis, cuando me refiera por ejemplo al TAG 0, tendremos que fijarnos sobre los siguientes gráficos y tablas dadas durante el punto 2.2.4).
+
 El análisis de resultados lo haremos en función del viento. Lo que queremos encontrar son patrones entre las lecturas del sismógrafo y la velocidad del viento junto a otras variables.
 
 ##### 2.2.4.1) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 1 M/S
@@ -588,7 +592,9 @@ Viendo la siguiente tabla:
 *	La velocidad del viento y los cruces ceros siguen manteniéndose constantes.
 *	Cuanto menor presión del aire, sigue estando una mayor temperatura
 *	En el TAG 2, donde las lecturas del sismógrafo son mayores, la media de la velocidad del viento también aumenta respecto a los 	demás.
-*
+
+##### 2.2.4.3) 
+
 
 
 

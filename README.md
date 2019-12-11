@@ -57,9 +57,9 @@ Para todo ello dispondremos el proyectos en diferentes fases.
     - [1.3.2) MATRIZ DE CORRELACIÓN](#132-matriz-de-correlación).
     - [1.3.3) ANÁLISIS DE CORRELACIONES LINEALES](#133-análisis-de-correlaciones-lineales).
     - [1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES](#134-agrupación-de-variables-como-grupos-independientes).
-  - [1.4) VARIABLES NO RELACIONADAS LINEALMENTE](#14-variables-no-correlacionales-linealmente)
+  - [1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE](#14-variables-no-correlacionadas-linealmente)
   
-- [ 2) FASE DE MODELADO DE ALGORITMOS NO SUPERVISADOS](#2-fase-de-modelado-de-algoritmos-no-supervisados).
+- [ 2) FASE DE MODELADO](#2-fase-de-modelado).
   - [2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES](#21-reducción-de-variables-dependientes-a-independientes).
     - [2.1.1) INTRODUCCIÓN PCA](#211-introducción-pca).
     - [2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES](#212-aplicación-pca-sobre-cada-grupo-de-variables-dependientes).
@@ -72,12 +72,15 @@ Para todo ello dispondremos el proyectos en diferentes fases.
       - [2.2.3.1) INTRODUCCIÓN MODELO GMM](#2231-introducción-modelo-gmm).
       - [2.2.3.2) MODELADO](#2232-modelado).
     - [2.2.4) ANÁLISIS DE RESULTADOS](#224-análisis-de-resultados)
+      - [2.2.4.1) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 1 M/S](#2241-análisis-del-viento-cuando-es-menor-a-1-ms).
+      - [2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 50 M/S](#2242-análisis-del-viento-cuando-es-menor-a-50-ms).
+      - [2.2.4.3) CONCLUSIONES FINALES Y PARA FUTURO](#2243-conclusiones-finales-y-para-futuro).
 - [ 3) FASE DE CLASIFICACIÓN A TIEMPO REAL](#3-fase-de-clasificación-a-tiempo-real).
   - [ 3.1) GENERACIÓN Y ENVÍO DE DATOS](#31-generación-y-envío-de-datos).
   - [ 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS](#32-recepción-y-clasificación-de-datos).
 - [ 4) PRUEBAS DE RENDIMIENTO](#4-pruebas-de-rendimiento).
   - [ 4.1) RENDIMIENTO LOCAL](#41-rendimiento-local).
-  - [ 4.2) RENDIMIENTO EN AWS](#41-rendimiento-en-aws).
+  - [ 4.2) RENDIMIENTO EN AWS](#42-rendimiento-en-aws).
 - [ 5) CÓMO EJECUTAR EL CÓDIGO](#5-cómo-ejecutar-el-código).
   - [ 5.1) ENTRENAMIENTO DEL MODELO](#51-entrenamiento-del-modelo).
   - [ 5.2) CLASIFICACIÓN A TIEMPO REAL](#52-clasificación-a-tiempo-real).
@@ -222,7 +225,9 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 	from pyspark.sql import SQLContext
 	from pyspark.ml.feature import VectorAssembler, PCAModel, StandardScalerModel
 	from pyspark.ml.clustering import KMeansModel
-	
+	from pyspark.sql.functions import udf
+	from pyspark.sql.types import StringType
+
 	import sys
 	import requests
 	import prepro
@@ -846,13 +851,14 @@ Mientras que utilizamos esta para que solo utilice un core:
 ```
 
 Algunos gráficos para los resultados obtenidos son los siguientes:
+
 Tiempo de preprocesado:
 
-![Preprocessing](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph2.PNG)
+![Preprocessing.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph2.PNG)
 
 
 Tiempo de entrenamiento para un k-means con 4 grupos:
-![Training](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph3.PNG)
+![Training.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph3.PNG)
  
 Como se puede comprobar, el tiempo que se tarda en hacer ambos procesos se reduce aproximadamente un 33%. Algo que se podría esperar si la paralelización fuese perfecta es que fuera una reducción del 75%, ya que hay 4 veces más hilos. Sin embargo, hay partes que no se pueden paralelizar y esto limita la mejora. Además, como se ha comentado anteriormente, el k-means es un algoritmo dificilmente paralelizable y en el que los hilos se tienen que comunicar constantemente entre sí, por lo que la paralelización siempre va a estar algo limitada.
 

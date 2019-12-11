@@ -872,6 +872,7 @@ spark-submit kmeans_classification
 ```
 
 Este código genera varios datos. Incluye los gráficos generados en spark/images, las descripciones estadísticas de cada grupo en spark/describes, y los modelos generados en spark/models. Si se ejecuta varias veces el código, las salidas se sobreescriben.
+Además, se crea un archivo log.txt en el que se van añadiendo los tiempos que ha tardado cada proceso, el cual se utiliza para generar las gráficas de comparación de tiempos.
 
 ### 5.2) CLASIFICACIÓN A TIEMPO REAL
 La mayor parte de prerrequisitos son iguales que en el apartado anterior, por lo que debería seguirse antes de hacer este. Se debe haber ejecutado además de la sección anterior para que este funcione, ya que requiere los modelos generados.

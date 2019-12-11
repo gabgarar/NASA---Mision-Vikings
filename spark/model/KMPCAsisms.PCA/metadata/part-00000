@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.PCAModel","timestamp":1576092825599,"sparkVersion":"2.2.0","uid":"PCA_4a06b3977646722088d1","paramMap":{"outputCol":"sismsNormPCA","inputCol":"sismsNorm","k":1}}

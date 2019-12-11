@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StandardScalerModel","timestamp":1576092808754,"sparkVersion":"2.2.0","uid":"StandardScaler_4984a4f7c1f9c37c212e","paramMap":{"withStd":true,"inputCol":"sisms","withMean":false,"outputCol":"sismsNorm"}}

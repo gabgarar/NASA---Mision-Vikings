@@ -1,0 +1,36 @@
+--- Preprocessing time: 32.99577593803406 seconds ---
+--- Preprocessing time: 30.8804349899292 seconds ---
+--- Kmeans 3 groups: 13.604307413101196 seconds ---
+--- Kmeans 4 groups: 10.701441049575806 seconds ---
+--- Kmeans 5 groups: 9.412729740142822 seconds ---
+--- Preprocessing time: 30.223670721054077 seconds ---
+--- Kmeans 2 groups: 12.917328357696533 seconds ---
+--- Kmeans 3 groups: 10.27791714668274 seconds ---
+--- Kmeans 4 groups: 9.65385389328003 seconds ---
+--- Kmeans 5 groups: 9.509000539779663 seconds ---
+--- Kmeans 6 groups: 9.486974000930786 seconds ---
+--- Kmeans 7 groups: 9.641985893249512 seconds ---
+--- Kmeans 8 groups: 9.811916828155518 seconds ---
+--- Kmeans 9 groups: 9.74821662902832 seconds ---
+--- Kmeans 10 groups: 9.884125471115112 seconds ---
+--- Kmeans 11 groups: 9.80461573600769 seconds ---
+--- Kmeans 12 groups: 10.24673318862915 seconds ---
+--- Preprocessing time: 30.691654205322266 seconds ---
+--- Kmeans 3 groups: 13.886493921279907 seconds ---
+--- Kmeans 4 groups: 10.457091093063354 seconds ---
+--- Preprocessing time: 39.62587118148804 seconds ---
+--- Kmeans 5 groups: 15.560067892074585 seconds ---
+--- Preprocessing time: 45.93027091026306 seconds ---
+--- Kmeans 3 groups: 18.212466716766357 seconds ---
+--- Kmeans 4 groups: 17.40341353416443 seconds ---
+--- Kmeans 5 groups: 17.991961240768433 seconds ---
+--- Preprocessing time: 33.12683415412903 seconds ---
+--- Kmeans 3 groups: 15.36108922958374 seconds ---
+--- Kmeans 4 groups: 11.349231004714966 seconds ---
+--- Kmeans 5 groups: 12.461604118347168 seconds ---
+--- Preprocessing time: 35.879374265670776 seconds ---
+--- Kmeans 3 groups: 19.7643461227417 seconds ---
+--- Kmeans 4 groups: 11.45018720626831 seconds ---
+--- Kmeans 5 groups: 17.557602167129517 seconds ---
+--- Kmeans 6 groups: 9.91282033920288 seconds ---
+--- Kmeans 7 groups: 12.344887971878052 seconds ---

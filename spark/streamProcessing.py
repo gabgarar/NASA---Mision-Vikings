@@ -3,9 +3,18 @@ from pyspark.streaming import StreamingContext
 from pyspark.sql import SQLContext
 from pyspark.ml.feature import VectorAssembler, PCAModel, StandardScalerModel
 from pyspark.ml.clustering import KMeansModel
+from pyspark.sql.functions import udf
+from pyspark.sql.types import StringType
+
 import sys
 import requests
 import prepro
+
+def tagToTxt(tag):
+    if tag == 3:
+        return "Posible sismo";
+    else:
+        return "Datos normales";
 
 # Establecemos la configuracion de SPARK 
 conf = SparkConf()
@@ -37,13 +46,6 @@ pre_temp = ['PRESSURE','AIR_TEMPERATURE']
 
 # Variables independientes entre si 
 indep = ['MEAN_X_AXIS_CROSSINGS', 'MEAN_Y_AXIS_CROSSINGS', 'MEAN_Z_AXIS_CROSSINGS','WIND_DIRECTION']
-
-dataStream.foreachRDD(process_rdd)
-
-ssc.start()
-
-ssc.awaitTermination()
-
 
 # Funciones a usar
 def get_sql_context_instance(spark_context):
@@ -119,10 +121,14 @@ def process_rdd(time, rdd):
         # Categorizamos los datos df['features']
         dfTransformed = kmeans.transform(df)
 
+        func_udf = udf(tagToTxt, StringType())
+
         # Sacamos la categorizacion de dicho vector o TAG en la variable prediction
             # Seleccionamos unicamente la magnitud del sismografo, con la presion por ejemplo para visualizarlo
             #** pueden usarse cualquier otra
-        dfTransformed = dfTransformed.select("RMS_X_AXIS_X100", "PRESSURE", "prediction")
+        dfTransformed = dfTransformed.select("RMS_X_AXIS_X100", "WINDSPEED", "PRESSURE", "MEAN_X_AXIS_CROSSINGS", "prediction")
+
+        dfTransformed = dfTransformed.withColumn('meaning', func_udf(dfTransformed['prediction']))
 
         #Mostramos
         dfTransformed.show()
@@ -131,4 +137,8 @@ def process_rdd(time, rdd):
         print("Error: %s" % str(e))
 
 
+dataStream.foreachRDD(process_rdd)
 
+ssc.start()
+
+ssc.awaitTermination()

@@ -560,21 +560,36 @@ Empecemos analizando los resultados de nuestro algoritmo de clustering cuando la
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.PNG)
 
-Podemos comprobar que los TAG 1,2 y3 se mantienen constantes, mientras que el 0, en color rojo, son los valores anormales.
-Para terminar de analizar este subgrupo, usaremos las estadísticas básicas.
-En la superior tenemos las estadísticas, y en la inferior el número de lecturas de cada categoría.
+Podemos comprobar que los TAGs 0,1 y 3 se mantienen constantes, mientras que el 2, en color cyan, son los valores anormales.
+Respecto a las estadísticas básicas,en la siguiente tabla tenemos en la parte superior estadísticas, y en la inferior el número de lecturas de cada categoría.
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less1.PNG)
 
-Se puede observar, como se ha indicado antes, que los TAGS 1, 2 y 3, tienen estadísticas similares.
-En este analisis, la velocidad del viento y los cruces ceros se mantienen constantes en todos los grupos.
-Nos fijamos entonces en que cuanto menor presión y mayor temperatura del aire, mayor lecturas del sismógrafo. Esto se ve en los TAGs 0 y 3. 
-En referencia al número de lecturas, vemos que el algoritmo tiene en cuenta sobre todo, el RMS_X a la hora de clasificar.
+**Observaciones**
+*	TAGS 0,1 y 3, tienen estadísticas similares
+*	Velocidad del viento y los cruces ceros se mantienen constantes en todos los grupos
+*	Cuanto menor presión atmosférica , mayor temperatura del aire
+*	Cuanto menor presión y mayor temperatura del aire, mayor lecturas del sismógrafo. Esto se ve en los TAGs 1 y 2. 
+*	En cuanto al número de lecturas, vemos que el algoritmo tiene en cuenta sobre todo, el RMS_X a la hora de clasificar.
 
 ##### 2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 50 M/S
 
+En el siguiente gráfico, pueden verse mucho mejor la influencia del viento en los datos del sismógrafo. Tomando forma en mariposa, donde a mayor velocidad del viento, todos los datos se acaban volviendo de color cyan.
 
-##### 2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MAYOR A 50 M/S
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less2.PNG)
+
+Para analizarlo, como antes usaremos sus estadísticas.
+Viendo la siguiente tabla:
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less2.PNG)
+
+**Observaciones**
+*	Las estadísticas se mantienen iguales al analisis de velocidad de viento nulo.
+*	La velocidad del viento y los cruces ceros siguen manteniéndose constantes.
+*	Cuanto menor presión del aire, sigue estando una mayor temperatura
+*	En el TAG 2, donde las lecturas del sismógrafo son mayores, la media de la velocidad del viento también aumenta respecto a los 	demás.
+*
+
 
 
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL

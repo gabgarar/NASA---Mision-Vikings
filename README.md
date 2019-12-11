@@ -12,14 +12,6 @@
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
 	*	Jorge García Cerros          : jorge_atlm@hotmail.com			github@JorgeGCrrs			
-### COSAS QUE FALTAN POR TERMINAR PARA EL 13/12/2019
-	* 	Subir lo del analisis de grupos clusterizado
-	*	La fuckin presentación
-	*	Hacer un croquis de documentos
-	* 	Oops se perdió la loli
-	*	Bailarse un buen cumbiote para celebrar la matricula
-	
-***![RICARDITO](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/easterEGG/ricardo.gif)***
 ### INTRODUCCIÓN
 
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.

@@ -11,7 +11,7 @@
 	Trabajo realizado por: 
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
-	*	Jorge García Cerros          : jorge_atlm@hotmail.com			github@JorgeGCrrs			
+	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs			
 ### INTRODUCCIÓN
 
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
@@ -856,8 +856,8 @@ Tiempo de preprocesado:
 
 ![Preprocessing.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph2.PNG)
 
-
 Tiempo de entrenamiento para un k-means con 4 grupos:
+
 ![Training.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph3.PNG)
  
 Como se puede comprobar, el tiempo que se tarda en hacer ambos procesos se reduce aproximadamente un 33%. Algo que se podría esperar si la paralelización fuese perfecta es que fuera una reducción del 75%, ya que hay 4 veces más hilos. Sin embargo, hay partes que no se pueden paralelizar y esto limita la mejora. Además, como se ha comentado anteriormente, el k-means es un algoritmo dificilmente paralelizable y en el que los hilos se tienen que comunicar constantemente entre sí, por lo que la paralelización siempre va a estar algo limitada.

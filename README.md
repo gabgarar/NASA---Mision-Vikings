@@ -83,12 +83,14 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 - [ 3) FASE DE CLASIFICACIÓN A TIEMPO REAL](#3-fase-de-clasificación-a-tiempo-real).
   - [ 3.1) GENERACIÓN Y ENVÍO DE DATOS](#31-generación-y-envío-de-datos).
   - [ 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS](#32-recepción-y-clasificación-de-datos).
-- [ 4) PRUEBA DE RENDIMIENTO EN AWS](#4-prueba-de-rendimiento-en-aws).
-  - [ 4.1) COMPARACIÓN DE RESULTADOS](#41-comparación-de-resultados).
+- [ 4) PRUEBAS DE RENDIMIENTO](#4-pruebas-de-rendimiento).
+  - [ 4.1) RENDIMIENTO LOCAL](#41-rendimiento-local).
+  - [ 4.2) RENDIMIENTO EN AWS](#41-rendimiento-en-aws).
+- [ 5) CÓMO EJECUTAR EL CÓDIGO](#5-cómo-ejecutar-el-código).
+  - [ 5.1) ENTRENAMIENTO DEL MODELO](#51-entrenamiento-del-modelo).
+  - [ 5.2) CLASIFICACIÓN A TIEMPO REAL](#52-clasificación-a-tiempo-real).
+
   
-  ### 4.1) COMPARACIÓN DE RESULTADOS
-  
-  ##
   ## 1 FASE DE ANÁLISIS
   ### 1.1) PROCEDENCIA DE LOS DATOS
   
@@ -752,7 +754,39 @@ dfTransformed = kmeans.transform(df)
 ```
 Y listo.
 
-## 4) PRUEBA DE RENDIMIENTO EN AWS
+## 4) PRUEBAS DE RENDIMIENTO
+Vamos a hacer algunas pruebas de rendimiento sobre la genración del modelo de k-means, y todo el preprocesado que se debe hacer antes, viendo cómo de grande es la mejora por la paralelización.
+
+El ordenador que se utiliza para las pruebas locales tiene las siguientes especificaciones:
+ - Una máquina virtual de Ubuntu 18.04
+ - Procesador Intel i5-6500K, 4 cores, 3.2 GHz.
+ - Memoria de 8Gb, DDR4, 2033MHz
+
+Lo que vamos a comprobar con estas pruebas, de forma precisa, es:
+ 
+ - El tiempo que tarda en el preprocesado (Estandarización, combinación de columnas y PCA)
+ - El tiempo que tarda en realizar k-means con 3, 4 y 5 grupos.
+
+### 4.1) RENDIMIENTO LOCAL
+La comparativa que vamos hacer en local es sencilla: Ver si utilizar más núcleos del procesador ofrece un resultado notable en el código. En el archivo spark/kmeans_classification.py utilizamos esta linea para utilizar todos los núcleos posibles (en este caso 4):
+```python
+	conf = SparkConf().setMaster('local[*]').setAppName('Clustering')
+```
+Mientras que utilizamos esta para que solo utilice un core:
+```python
+	conf = SparkConf().setMaster('local[1]').setAppName('Clustering')
+```
+
+Algunos gráficos para los resultados obtenidos son los siguientes:
+ - Tiempo de preprocesado:
+ ![Preprocessing](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph2.PNG)
+ - Tiempo de entrenamiento para un k-means con 4 grupos:
+ ![Training](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph3.PNG)
+ 
+ Como se puede comprobar, el tiempo que se tarda en hacer ambos procesos se reduce aproximadamente un 33%. Algo que se podría esperar si la paralelización fuese perfecta es que fuera una reducción del 75%, ya que hay 4 veces más hilos. Sin embargo, hay partes que no se pueden paralelizar y esto limita la mejora. Además, como se ha comentado anteriormente, el k-means es un algoritmo dificilmente paralelizable y en el que los hilos se tienen que comunicar constantemente entre sí, por lo que la paralelización siempre va a estar algo limitada.
+
+
+### 4.2) RENDIMIENTO EN AWS
 
 Ahora vamos a probar a ejecutar el modelo de entrenamiento de k-means en un cluster de Amazon Web Services. Para ello, vamos a utilizar 3 máquinas (1 master y 2 slaves) m4xlarge. Las especificaciones de estas máquinas son las siguientes:
  - Procesadores Intel Xeon® E5-2686 v4 (Broadwell) de 2,3 GHz o Intel Xeon® E5-2676 v3 (Haswell) de 2,4 GHz
@@ -793,21 +827,8 @@ Con esto hecho, ya podemos ejecutar el código, que generará en master las imá
 ```bash
 spark-submit --num-executors 2 --executor-cores 4 kmeans_classification_cluster.py 
 ```
-
-### 4.1) COMPARACIÓN DE RESULTADOS
-Gracias a loguear algunos tiempos podemos ver cómo lo hace el cluster con respecto a la ejecución local.
-Para la comparación, en local se ha hecho con las siguientes especificaciones.
  
- - Una máquina virtual de Ubuntu 18.04
- - Procesador Intel i5-6500K, 4 cores, 3.2 GHz.
- - Memoria de 8Gb, DDR4, 2033MHz
-
-Hemos comprobado 2 cosas con estas pruebas:
- 
- - El tiempo que tarda en el preprocesado (Estandarización, combinación de columnas y PCA)
- - El tiempo que tarda en realizar k-means con 3, 4 y 5 grupos.
- 
- Los siguientes gráficos muestran los resultados obtenidos:
+Los siguientes gráficos muestran los resultados obtenidos:
  
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/cluster.png)
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/local.png)
@@ -851,7 +872,7 @@ spark-submit kmeans_classification
 
 Este código genera varios datos. Incluye los gráficos generados en spark/images, las descripciones estadísticas de cada grupo en spark/describes, y los modelos generados en spark/models. Si se ejecuta varias veces el código, las salidas se sobreescriben.
 
-### 5.1) CLASIFICACIÓN A TIEMPO REAL
+### 5.2) CLASIFICACIÓN A TIEMPO REAL
 La mayor parte de prerrequisitos son iguales que en el apartado anterior, por lo que debería seguirse antes de hacer este. Se debe haber ejecutado además de la sección anterior para que este funcione, ya que requiere los modelos generados.
 Primero ejecutamos el generado de datos dentro de la carpeta spark:
 ```bash

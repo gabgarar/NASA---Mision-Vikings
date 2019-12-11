@@ -627,14 +627,22 @@ pr["TAG_KM"] = labels_pr;
 
 Una vez tenemos el dataset con los labels o TAG, unicamente será mostrar los resultados en forma de gráfica y de estadísticos.
 
-El gráfico será:
+El gráfico general de los 3 TAGs será:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less3.PNG)
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less3_1.PNG)
+
+Donde puede apreciarse muy bien que tanto los colores verdes y rojos son predominantes.
+PAra visualizar el cyan de mejor forma:
+
+![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less3_2.PNG)
 
 Y los estadísticos:
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less3.PNG)
 
+Por tanto, el TAG 0 y 1, serán datos no fiables finales.
+El TAG 2, dada las estadísticas, tiene una velocidad del viento bastante pequeña, un RMS alto y una media de X Crossing bajo también.
+Esto puede ser un posible evento.
 
 
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL

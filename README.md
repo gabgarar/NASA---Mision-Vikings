@@ -814,5 +814,33 @@ Hemos comprobado 2 cosas con estas pruebas:
 
 Como se puede observar, los resultados de cluster son *peores* que los obtenidos en local. Todos los procesos tardan aproximadamente 5 segundos más. Esto se debe probablemente al tamaño pequeño del dataset, de tan solo 40Mb. Al ser tan pequeño, el sobrecoste de las comunicaciones entre las máquinas es mayor que la acelaración que se produce al tener mayor número de procesadores. Esto es especialmente cierto para el proceso de kmeans, ya que la comunicación entre las máquinas es constante, y sin un dataset grande no se obtienen mejoras de rendimiento notables.
 
+## 5) CÓMO EJECUTAR EL CÓDIGO
+A continuación proponemos la manera de ejecutar el código obtenido tras el análisis para obtener los gráficos y los datos que hemos obtenido, junto a la simulación a tiempo real.
 
+### 5.1) ENTRENAMIENTO DEL MODELO
+Para poder ejecutar el código, tenemos que instalar algunas dependencias, si no existen ya en el sistema (ademas de haber instalado Spark). Cabe destacar que hemos utilizado Ubuntu 18, por lo que este tutorial se hará para este SO. También utilizamos python 3.6 para ejecutar el código, por lo que si no se encuentrá en tu sistema primero deberías que instalarlo. A continuación, mostramos como instalar algunas de las dependencias para python utilizadas, instalandolas con pip3:
+ - Matplotlib
+```bash
+sudo pip3 install matplotlib
+```
 
+ - Pandas
+```bash
+sudo pip3 install pandas
+```
+
+ - Seaborn
+ ```bash
+sudo pip3 install seaborn
+```
+
+Por último, debemos asegurarnos de estar utilizando python 3.6 con spark. Una de las maneras de hacerlo sería, suponiendo que tu instalació de python3.6 esté en /usr/bin/python3.6:
+```bash
+export PYSPARK_PYTHON=/usr/bin/python3.6
+```
+
+Ya estamos listos para ejecutar el código. Se ejecuta desde la carpeta spark:
+```bash
+spark-submit kmeans_classification
+```
+Este código genera varios datos. Incluye los gráficos generados en spark/images, las descripciones estadísticas de cada grupo en spark/describes, y los modelos generados en spark/models. Si se ejecuta varias veces el código, las salidas se sobreescriben.

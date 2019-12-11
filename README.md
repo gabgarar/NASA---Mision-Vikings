@@ -819,6 +819,11 @@ A continuación proponemos la manera de ejecutar el código obtenido tras el an�
 
 ### 5.1) ENTRENAMIENTO DEL MODELO
 Para poder ejecutar el código, tenemos que instalar algunas dependencias, si no existen ya en el sistema (ademas de haber instalado Spark). Cabe destacar que hemos utilizado Ubuntu 18, por lo que este tutorial se hará para este SO. También utilizamos python 3.6 para ejecutar el código, por lo que si no se encuentrá en tu sistema primero deberías que instalarlo. A continuación, mostramos como instalar algunas de las dependencias para python utilizadas, instalandolas con pip3:
+ - Numpy
+```bash
+sudo pip3 install numpy
+```
+
  - Matplotlib
 ```bash
 sudo pip3 install matplotlib
@@ -839,8 +844,23 @@ Por último, debemos asegurarnos de estar utilizando python 3.6 con spark. Una d
 export PYSPARK_PYTHON=/usr/bin/python3.6
 ```
 
-Ya estamos listos para ejecutar el código. Se ejecuta desde la carpeta spark:
+Ya deberíamos estar listos para ejecutar el código. Se ejecuta desde la carpeta spark:
 ```bash
 spark-submit kmeans_classification
 ```
+
 Este código genera varios datos. Incluye los gráficos generados en spark/images, las descripciones estadísticas de cada grupo en spark/describes, y los modelos generados en spark/models. Si se ejecuta varias veces el código, las salidas se sobreescriben.
+
+### 5.1) CLASIFICACIÓN A TIEMPO REAL
+La mayor parte de prerrequisitos son iguales que en el apartado anterior, por lo que debería seguirse antes de hacer este. Se debe haber ejecutado además de la sección anterior para que este funcione, ya que requiere los modelos generados.
+Primero ejecutamos el generado de datos dentro de la carpeta spark:
+```bash
+sudo python3 streamDataGenerator.py
+```
+Este archivo abre una conexión TCP en el puerto 9012, por lo que fracasará si este está siendo utilizado ya. A continuación se ejecuta el procesador, en la misma carpeta, con:
+```bash
+spark-submit streamProcessing.py
+```
+Una vez cargue, empezará a procesar los datos que streamDataGenerator empiece a enviar, y a mostrarlos por pantalla.
+```
+

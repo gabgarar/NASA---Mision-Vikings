@@ -780,6 +780,7 @@ Mientras que utilizamos esta para que solo utilice un core:
 Algunos gráficos para los resultados obtenidos son los siguientes:
  - Tiempo de preprocesado:
  ![Preprocessing](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph2.PNG)
+ 
  - Tiempo de entrenamiento para un k-means con 4 grupos:
  ![Training](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph3.PNG)
  

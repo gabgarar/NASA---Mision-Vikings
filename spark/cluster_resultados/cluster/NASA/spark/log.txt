@@ -1,0 +1,17 @@
+--- Preprocessing time: 32.99577593803406 seconds ---
+--- Preprocessing time: 30.8804349899292 seconds ---
+--- Kmeans 3 groups: 13.604307413101196 seconds ---
+--- Kmeans 4 groups: 10.701441049575806 seconds ---
+--- Kmeans 5 groups: 9.412729740142822 seconds ---
+--- Preprocessing time: 34.12232971191406 seconds ---
+--- Kmeans 3 groups: 19.6397123336792 seconds ---
+--- Kmeans 4 groups: 14.935578107833862 seconds ---
+--- Kmeans 5 groups: 15.934621334075928 seconds ---
+--- Preprocessing time: 34.40599536895752 seconds ---
+--- Kmeans 3 groups: 19.833629369735718 seconds ---
+--- Kmeans 4 groups: 15.210969924926758 seconds ---
+--- Kmeans 5 groups: 14.844110488891602 seconds ---
+--- Preprocessing time: 34.09460687637329 seconds ---
+--- Kmeans 3 groups: 19.880448818206787 seconds ---
+--- Kmeans 4 groups: 15.630181074142456 seconds ---
+--- Kmeans 5 groups: 15.375703573226929 seconds ---

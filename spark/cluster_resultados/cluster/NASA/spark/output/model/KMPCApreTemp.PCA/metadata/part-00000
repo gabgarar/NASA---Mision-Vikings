@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.PCAModel","timestamp":1575839762771,"sparkVersion":"2.4.4","uid":"PCA_fb4de5ec1a01","paramMap":{"outputCol":"pre_tempNormPCA","k":1,"inputCol":"pre_tempNorm"},"defaultParamMap":{"outputCol":"PCA_fb4de5ec1a01__output"}}

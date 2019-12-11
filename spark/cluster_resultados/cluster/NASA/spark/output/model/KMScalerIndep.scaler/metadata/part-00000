@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.StandardScalerModel","timestamp":1575839748540,"sparkVersion":"2.4.4","uid":"StandardScaler_47754a299857","paramMap":{"inputCol":"indep","outputCol":"indepNorm"},"defaultParamMap":{"outputCol":"StandardScaler_47754a299857__output","withMean":false,"withStd":true}}

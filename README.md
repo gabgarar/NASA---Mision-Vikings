@@ -12,7 +12,7 @@
 	Trabajo realizado por: 
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
-	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs
+	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs	###
 		
 ## INDICE
 - [INTRODUCCIÓN](#introducción).
@@ -195,7 +195,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
    *	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
    *	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
 
-  #### [1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS](#indice)
+  #### 1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS
      
    Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
    Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
@@ -245,11 +245,8 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 	import numpy as np
    ```
 
-   Una vez importadas las librerías en los respectivos archivos, leemos las cabeceras de los archivos .lbl con el código:
-   
-   
-    
-     
+Una vez importadas las librerías en los respectivos archivos, leemos las cabeceras de los archivos .lbl con el código:
+  
   #### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
    
    Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo, máximo y percentiles.

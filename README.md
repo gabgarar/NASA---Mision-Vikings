@@ -11,7 +11,9 @@
 	Trabajo realizado por: 
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
-	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs			
+	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs
+	
+	
 ### INTRODUCCIÓN
 
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
@@ -107,7 +109,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
   
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
   
-   #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
+   ### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
    Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
    Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
    Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.

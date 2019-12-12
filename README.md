@@ -390,8 +390,13 @@ Lo mismo ocurre con las variables temporales.
 Estas relaciones no lineales no afectarán en principio al entrenamiento del modelo, aunque estarán metidas de forma indirecta.
 
   ## 2) FASE DE MODELADO
+  [Volver al índice](#indice)
   ### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
+  [Volver al índice](#indice)
+
   ### 2.1.1) INTRODUCCIÓN PCA
+  [Volver al índice](#indice)
+
   La funcionalidad de aplicar PCA o análisis de componentes principales es describir las características de un conjunto de variables y reducirlas a un conjunto de variables no correlacionadas de dimensiones menores.
 
   Debido a que para entrenar un modelo no supervisado deberán ser todas sus variables de entrenamiento independientes, deberemos de aplicar a cada subgrupo hecho anteriormente PCA.
@@ -546,7 +551,7 @@ A continuación vamos a hacer un bulce en el que se creará varios modelos para 
 	
    transformed = model.transform(trainingData)
 ```
-Para mostrar el gráfico generado se hará de la misma manera con la que se genera el grafico en el modelo de K-Means en el apartado 2.2.2.2.
+Para mostrar el gráfico generado se hará de la misma manera con la que se genera el grafico en el modelo de K-Means en el apartado [2.2.2.2](#2222-modelado).
 
   #### 2.2.4) ANÁLISIS DE RESULTADOS:
 

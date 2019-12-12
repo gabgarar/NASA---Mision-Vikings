@@ -1,6 +1,6 @@
 
 # ANALISIS DE DATOS SISMOGRÁFICOS PROCEDENTES DE LA MISIÓN VIKING
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
 ![Python](https://img.shields.io/badge/python-v3.6+-blue.svg)
 ![Spark](https://img.shields.io/badge/spark-v2.4.4+-blue.svg)
 ![Contributors](https://img.shields.io/badge/contributors-3-orange)

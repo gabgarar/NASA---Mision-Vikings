@@ -102,14 +102,14 @@ Para todo ello dispondremos el proyectos en diferentes fases.
   Al final, los orbitadores lograron transmitir datos hacia el planeta Tierra , una hasta el año 1980 y la otra hasta el 1978.
   Referente a los módulos de aterrizaje, la Viking 1 retransmitió datos a la Tierra hasta el año 1980, y la Viking 2 hasta el 1982.
   
-### 1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS
+  ### 1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS
   
   Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por  la NASA.
   El enlace que usaremos para descargar los archivos es:
   
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
   
-### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
+  #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
    Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
    Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
    Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.
@@ -167,7 +167,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
     
 
-### 1.2.2) ESTRUCTURA DE LOS DATOS
+  ### 1.2.2) ESTRUCTURA DE LOS DATOS
      
    Los que nos interesarán en concreto será el high_wind_summary y el event_wind_summary.
    En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
@@ -197,7 +197,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
    *	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
    *	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
 
-### [1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS](#indice)
+  ### [1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS](#indice)
      
    Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
    Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.

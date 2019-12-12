@@ -447,11 +447,13 @@ En el dataframe final tendremos todos los datos originales, junto con las variab
 ### 2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS
 
 #### 2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS
+
 Los modelos no supervisados permiten buscar patrones entre los datos que tenemos, sin la necesidad de que estos estén etiquetados. Como solo tenemos los datos de entrada y no datos de salida utilizar este tipo de modelo tiene como finalidad describir la estructura de los datos para encontrar algún tipo de organización que simplifique el análisis.
 
 Estos algoritmos también suelen tomar el nombre de algoritmos de clustering, ya que intentan formar grupos (clusters) a partir de los datos con características similares.
 
 #### 2.2.2) MODELO K-MEANS
+
 ##### 2.2.2.1) INTRODUCCIÓN DEL MODELO K-MEANS
 
 K-Means es uno de los algoritmos de clustering más populares. Intenta dividir unos datos en k grupos, siendo k un número seleccionado por el usuario, en el cual cada observación pertenece al grupo con la media más cercana.
@@ -468,6 +470,7 @@ Es un algoritmo muy costoso computacionalmente, con una complejidad de O(n^2). A
 Este gráfico muestra una la mejora experimentada gracias a utilizar una versión paralelizable, en el que se observa que la mejora no es especialmente grande por el problema discutido anteriormente, pero sí bastante significante.
 
 ##### 2.2.2.2) MODELADO
+
 Para poder modelar con K-means utilizando las librerias de machine learning que nos proporciona Spark, primero tenemos que agrupar todos los datos de entrenamiento en una columna features.
 
 ```python
@@ -656,7 +659,9 @@ Esto puede ser un posible evento.
 
 
 ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
+
 ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
+
 Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.
 La generación de datos la haremos basadas en las distribuciones normales de cada columna en el dataset original. Para ello, primero vamos a coger las columnas que nos interesan del dataset de la misión Viking y a calcular la media y la desviación típica de estas columnas. 
 ```python
@@ -833,6 +838,7 @@ dfTransformed = kmeans.transform(df)
 Y listo.
 
 ## 4) PRUEBAS DE RENDIMIENTO
+
 Vamos a hacer algunas pruebas de rendimiento sobre la genración del modelo de k-means, y todo el preprocesado que se debe hacer antes, viendo cómo de grande es la mejora por la paralelización.
 
 El ordenador que se utiliza para las pruebas locales tiene las siguientes especificaciones:
@@ -846,6 +852,7 @@ Lo que vamos a comprobar con estas pruebas, de forma precisa, es:
  - El tiempo que tarda en realizar k-means con 3, 4 y 5 grupos.
 
 ### 4.1) RENDIMIENTO LOCAL
+
 La comparativa que vamos hacer en local es sencilla: Ver si utilizar más núcleos del procesador ofrece un resultado notable en el código. En el archivo spark/kmeans_classification.py utilizamos esta linea para utilizar todos los núcleos posibles (en este caso 4):
 ```python
 	conf = SparkConf().setMaster('local[*]').setAppName('Clustering')
@@ -921,6 +928,7 @@ Como se puede observar, los resultados de cluster son *peores* que los obtenidos
 A continuación proponemos la manera de ejecutar el código obtenido tras el análisis para obtener los gráficos y los datos que hemos obtenido, junto a la simulación a tiempo real.
 
 ### 5.1) ENTRENAMIENTO DEL MODELO
+
 Para poder ejecutar el código, tenemos que instalar algunas dependencias, si no existen ya en el sistema (ademas de haber instalado Spark). Cabe destacar que hemos utilizado Ubuntu 18, por lo que este tutorial se hará para este SO. También utilizamos python 3.6 para ejecutar el código, por lo que si no se encuentrá en tu sistema primero deberías que instalarlo. A continuación, mostramos como instalar algunas de las dependencias para python utilizadas, instalandolas con pip3:
  - Numpy
 ```bash
@@ -956,6 +964,7 @@ Este código genera varios datos. Incluye los gráficos generados en spark/image
 Además, se crea un archivo log.txt en el que se van añadiendo los tiempos que ha tardado cada proceso, el cual se utiliza para generar las gráficas de comparación de tiempos.
 
 ### 5.2) CLASIFICACIÓN A TIEMPO REAL
+
 La mayor parte de prerrequisitos son iguales que en el apartado anterior, por lo que debería seguirse antes de hacer este. Se debe haber ejecutado además de la sección anterior para que este funcione, ya que requiere los modelos generados.
 Primero ejecutamos el generado de datos dentro de la carpeta spark:
 ```bash

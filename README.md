@@ -266,17 +266,17 @@ Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo
    *	**WIND_SEISMIC_INTERVAL**: En la documentación se expone que los valores en las ultimas tomas y en las primeras tomas del dataset, no tenía que tenerse en cuenta debido a que los valores eran excesivos.
 	Esto hace que la media y la desviación estándar inicial no pueda usarse.
    	
-![Describe.](images/describes/3.png)
+![Describe.](/images/describes/3.png)
 
    ***Variables meteorológicas:***
    *	**WINDSPEED**:La velocidad del viento varía entre 0 m/s hasta los 531 m/s. Este valor no tiene sentido. Por lo que seguramente nos tocará hacer una limpieza inicial de valores.
         Viendo los percentiles, hasta un 75% de los datos tomados están por debajo de los 5m/s, valores con vientos de valor bajos – medios.
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/4.png)
+![Describe.](/images/describes/4.png)
    *	**PRESSURE**: La presión irá desde los 0 milibares hasta los 10,7.
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/5.png)
+![Describe.](/images/describes/5.png)
    *	**WIND_DIRECTION**: dirección del viento relativa al viento en grados, de 0º a 360º.
    *	**AIR_TEMPERATURE**: temperatura del aire en kelvin, desde los 50k hasta los 337k.
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/6.png)
+![Describe.](/images/describes/6.png)
 
    ***Variables sismográficas:***
    *	**RMS_X_AXIS_X100**: Debido a que los valores van desde unos -130 hasta +130, usaremos el RMS para sacar una magnitud de dichos valores. 
@@ -287,7 +287,7 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
    *	**MEAN_X_AXIS_CROSSINGS**: Se puede ver que irá desde 0 hasta los 31. Cuanto más rápido oscile la onda, mayor será el número de pasos por 0.
 	Este tipo de valores puede usarse para el estudio sonoro de fondo para la detección de sonidos, estructuras o efectos en tiempos discretos.
 	
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/7.png)
+![Describe.](/images/describes/7.png)
    
 ### 1.3) AGRUPACIÓN DE DATOS
   
@@ -328,7 +328,7 @@ Podremos realizarlas en Python con:
 
 El resultado será el siguiente gráfico:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/8.png)
+![Describe.](/images/describes/8.png)
 
 
 Es una tabla bastante amplia, pero la usaremos únicamente como visión general a la hora de hacer los grupos.
@@ -337,7 +337,7 @@ Tomaremos los valores como correlacionados fuertemente como 1.0.5 y -0.5…-1, u
 
 Correlaciones de variables meteorológicas:
 		
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/9.png)
+![Describe.](/images/describes/9.png)
 
 
 Podemos ver que hay una relación inversa entre la temperatura y la presión en un rango de correlación alto.
@@ -355,7 +355,7 @@ Debido a que son escalas temporales, la de segundos, minutos, horas y soles ser�
 
 Correlaciones de variables sismográficas:
 		
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/10.png)
+![Describe.](/images/describes/10.png)
 
 Recordemos que el sismógrafo toma lecturas en tres ejes, eje X, eje Y, eje Z. 
 Se ve muy claramente que todas las variables están relacionadas entre ellas fuertemente, y que el valor del viento también les afecta.
@@ -370,7 +370,7 @@ Cada uno de los subgrupos serán independientes entre ellos.
 Como un modelo solo puede tener de entrada variables independientes, aplicaremos PCA a cada subgrupo de variables dependientes para dejarlo en una sola variable.
 En Python referenciaremos a dichas variables con:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/11.png)
+![Describe.](/images/describes/11.png)
 
 
 ### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE
@@ -465,7 +465,7 @@ El algoritmo funciona de la siguiente manera:
 
 Es un algoritmo muy costoso computacionalmente, con una complejidad de O(n^2). Además, por la forma en la que se implementa, requiere comunicación constante entre nodos, lo cual lo hace difícil de paralelizar. Sin embargo, no es imposible, y Spark implementa en su librería una versión paralelizable de este algoritmo.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/12.png)
+![Describe.](/images/describes/12.png)
 
 Este gráfico muestra una la mejora experimentada gracias a utilizar una versión paralelizable, en el que se observa que la mejora no es especialmente grande por el problema discutido anteriormente, pero sí bastante significante.
 
@@ -528,7 +528,7 @@ Por último, vamos a generar gráficos que nos permitan visualizar cómo se han 
 
 El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el que todos los puntos de datos se generan a partir de un número finito de distribuciones gaussianas. La finalidad de usar este tipo de modelos es aproximar o estimar a partir de sus componentes encontrando una similitud respecto a los datos que contiene las componentes.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/13.png)
+![Describe.](/images/describes/13.png)
 
 Ejemplo de uso de GMM a partir de dos componentes.
 
@@ -567,12 +567,12 @@ El análisis de resultados lo haremos en función del viento. Lo que queremos en
 ##### 2.2.4.1) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 1 M/S
 Empecemos analizando los resultados de nuestro algoritmo de clustering cuando la velocidad del viento sea menor que 1m/s. Veamos como se comporta el sismógrafo cuando no existe.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.PNG)
+![Describe.](/images/describes/graph_less1.PNG)
 
 Podemos comprobar que los TAGs 0,1 y 3 se mantienen constantes, mientras que el 2, en color cyan, son los valores anormales.
 Respecto a las estadísticas básicas,en la siguiente tabla tenemos en la parte superior estadísticas, y en la inferior el número de lecturas de cada categoría.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less1.PNG)
+![Describe.](/images/describes/ests_less1.PNG)
 
 **Observaciones**
 *	TAGS 0,1 y 3, tienen estadísticas similares
@@ -585,12 +585,12 @@ Respecto a las estadísticas básicas,en la siguiente tabla tenemos en la parte 
 
 En el siguiente gráfico, pueden verse mucho mejor la influencia del viento en los datos del sismógrafo. Tomando forma en mariposa, donde a mayor velocidad del viento, todos los datos se acaban volviendo de color cyan.
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less2.PNG)
+![Describe.](/images/describes/graph_less2.PNG)
 
 Para analizarlo, como antes usaremos sus estadísticas.
 Viendo la siguiente tabla:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less2.PNG)
+![Describe.](/images/describes/ests_less2.PNG)
 
 **Observaciones**
 *	Las estadísticas se mantienen iguales al analisis de velocidad de viento nulo.
@@ -642,16 +642,16 @@ Una vez tenemos el dataset con los labels o TAG, unicamente será mostrar los re
 
 El gráfico general de los 3 TAGs será:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less3_1.PNG)
+![Describe.](/images/describes/graph_less3_1.PNG)
 
 Donde puede apreciarse muy bien que tanto los colores verdes y rojos son predominantes.
 PAra visualizar el cyan de mejor forma:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less3_2.PNG)
+![Describe.](/images/describes/graph_less3_2.PNG)
 
 Y los estadísticos:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/ests_less3.PNG)
+![Describe.](/images/describes/ests_less3.PNG)
 
 Por tanto, el TAG 0 y 1, serán datos no fiables finales.
 El TAG 2, dada las estadísticas, tiene una velocidad del viento bastante pequeña, un RMS alto y una media de X Crossing bajo también.
@@ -803,7 +803,7 @@ df = scaler.transform(df)
 scaler = StandardScalerModel.load('model/KMScalerIndep.scaler')
 df = scaler.transform(df)
 ```
-Ahora ya tenemos los datos de entrada estandarizados, deberemos aplicarles PCA, para reducir variables en este caso de entrenamiento ( Aunque las entradas ya sean linealmente independientes entre si, el modelo fue entrenado con menos variables que las entradas).
+Ahora ya tenemos los datos de entrada estandarizados, deberemos aplicarles PCA, para reducir variables en este caso de entrenamiento (Aunque las entradas ya sean linealmente independientes entre si, el modelo fue entrenado con menos variables que las entradas).
 Por ello, importaremos el modelo entrenado de PCA y lo aplicamos:
 ```python
 #Cargamos el modelo entrenado de PCA con los datos reales de la mision para aplicar PCA sobre simulados
@@ -816,7 +816,7 @@ df = pca.transform(df)
 pca = PCAModel.load('model/KMPCApreTemp.PCA')
 df = pca.transform(df)
 ```
-Una vez tenemos los datos, seleccionamos que variables servirán como entrada del modelo y la variable salida del modelo de kmeans( en este caso será features).
+Una vez tenemos los datos, seleccionamos que variables servirán como entrada del modelo y la variable salida del modelo de kmeans (en este caso será features).
 Para ello:
 ```python
 assembler = VectorAssembler(
@@ -866,11 +866,11 @@ Algunos gráficos para los resultados obtenidos son los siguientes:
 
 Tiempo de preprocesado:
 
-![Preprocessing.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph2.PNG)
+![Preprocessing.](/images/charts/graph2.PNG)
 
 Tiempo de entrenamiento para un k-means con 4 grupos:
 
-![Training.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/graph3.PNG)
+![Training.](/images/charts/graph3.PNG)
  
 Como se puede comprobar, el tiempo que se tarda en hacer ambos procesos se reduce aproximadamente un 33%. Algo que se podría esperar si la paralelización fuese perfecta es que fuera una reducción del 75%, ya que hay 4 veces más hilos. Sin embargo, hay partes que no se pueden paralelizar y esto limita la mejora. Además, como se ha comentado anteriormente, el k-means es un algoritmo dificilmente paralelizable y en el que los hilos se tienen que comunicar constantemente entre sí, por lo que la paralelización siempre va a estar algo limitada.
 
@@ -887,7 +887,7 @@ Ahora vamos a probar a ejecutar el modelo de entrenamiento de k-means en un clus
 
 Creamos un cluster de ElasticMapReduce con las 3 máquinas descritas y la siguiente configuración de software:
 
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/utils/AWSsoftwareConfig.png)
+![Describe.](/images/utils/AWSsoftwareConfig.png)
 
 Respecto a los cambios en el código, estos son mínimos para poder utilizarlo en el cluster. Subiríamos la carpeta nasa junto a la carpeta spark al servidor master, y en el archivo kmeans_classification.py cambiariamos la siguiente linea:
 ```python
@@ -919,8 +919,8 @@ spark-submit --num-executors 2 --executor-cores 4 kmeans_classification_cluster.
  
 Los siguientes gráficos muestran los resultados obtenidos:
  
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/cluster.png)
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/charts/local.png)
+![Describe.](/images/charts/cluster.png)
+![Describe.](/images/charts/local.png)
 
 Como se puede observar, los resultados de cluster son *peores* que los obtenidos en local. Todos los procesos tardan aproximadamente 5 segundos más. Esto se debe probablemente al tamaño pequeño del dataset, de tan solo 40Mb. Al ser tan pequeño, el sobrecoste de las comunicaciones entre las máquinas es mayor que la acelaración que se produce al tener mayor número de procesadores. Esto es especialmente cierto para el proceso de kmeans, ya que la comunicación entre las máquinas es constante, y sin un dataset grande no se obtienen mejoras de rendimiento notables.
 

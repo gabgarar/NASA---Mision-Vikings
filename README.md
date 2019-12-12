@@ -263,6 +263,7 @@ Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo
    *	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
 	
 ![Describe.](/images/describes/2.png)
+
    *	**WIND_SEISMIC_INTERVAL**: En la documentación se expone que los valores en las ultimas tomas y en las primeras tomas del dataset, no tenía que tenerse en cuenta debido a que los valores eran excesivos.
 	Esto hace que la media y la desviación estándar inicial no pueda usarse.
    	
@@ -271,11 +272,16 @@ Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo
    ***Variables meteorológicas:***
    *	**WINDSPEED**:La velocidad del viento varía entre 0 m/s hasta los 531 m/s. Este valor no tiene sentido. Por lo que seguramente nos tocará hacer una limpieza inicial de valores.
         Viendo los percentiles, hasta un 75% de los datos tomados están por debajo de los 5m/s, valores con vientos de valor bajos – medios.
+	
 ![Describe.](/images/describes/4.png)
+
    *	**PRESSURE**: La presión irá desde los 0 milibares hasta los 10,7.
+   
 ![Describe.](/images/describes/5.png)
+
    *	**WIND_DIRECTION**: dirección del viento relativa al viento en grados, de 0º a 360º.
    *	**AIR_TEMPERATURE**: temperatura del aire en kelvin, desde los 50k hasta los 337k.
+   
 ![Describe.](/images/describes/6.png)
 
    ***Variables sismográficas:***
@@ -330,7 +336,6 @@ El resultado será el siguiente gráfico:
 
 ![Describe.](/images/describes/8.png)
 
-
 Es una tabla bastante amplia, pero la usaremos únicamente como visión general a la hora de hacer los grupos.
 Tomaremos los valores como correlacionados fuertemente como 1.0.5 y -0.5…-1, una correlación débil entre 0.3 … 0.5 y -0.5 … -0.3 y sin correlación hasta el 0.
 
@@ -338,7 +343,6 @@ Tomaremos los valores como correlacionados fuertemente como 1.0.5 y -0.5…-1, u
 Correlaciones de variables meteorológicas:
 		
 ![Describe.](/images/describes/9.png)
-
 
 Podemos ver que hay una relación inversa entre la temperatura y la presión en un rango de correlación alto.
 También hay una relación directa entre la presión y la variable temporal de adquisición de datos meteorológicos. 
@@ -920,6 +924,7 @@ spark-submit --num-executors 2 --executor-cores 4 kmeans_classification_cluster.
 Los siguientes gráficos muestran los resultados obtenidos:
  
 ![Describe.](/images/charts/cluster.png)
+
 ![Describe.](/images/charts/local.png)
 
 Como se puede observar, los resultados de cluster son *peores* que los obtenidos en local. Todos los procesos tardan aproximadamente 5 segundos más. Esto se debe probablemente al tamaño pequeño del dataset, de tan solo 40Mb. Al ser tan pequeño, el sobrecoste de las comunicaciones entre las máquinas es mayor que la acelaración que se produce al tener mayor número de procesadores. Esto es especialmente cierto para el proceso de kmeans, ya que la comunicación entre las máquinas es constante, y sin un dataset grande no se obtienen mejoras de rendimiento notables.

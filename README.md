@@ -7,46 +7,15 @@
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
 ![Hi](https://img.shields.io/badge/last%20commit-december%202019-yellow)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-### SOBRE NOSOTROS
+
+  ### SOBRE NOSOTROS
 	Trabajo realizado por: 
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
 	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs
-	
-	
-### INTRODUCCIÓN
-
-El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
-Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
-	
-Para todo ello dispondremos el proyectos en diferentes fases. 
-* La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
-	- Como se distribuyen los datos en los diferentes archivos.
-	- Que tipo de datos disponemos.
-	- Qué características tienen esos datos, haciendo uso de estadísticas básicas y distribuciones.
-	- Estandarización o normalización de los datos.
-	- Estudio de correlaciones lineales e introducción en correlaciones no lineales.
-	- Librerías usará cada parte.
-* La **fase 2** del proyecto será la **preparación de la entrada** del clasificador y su **entrenamiento**.
-	- Subdivisión del dataframe en grupos linealmente independientes.
-	- Aplicación de algorítmo PCA.
-	- Qué algoritmo de clasificación usar y su por qué.
-	- Estudio de los datos de salida del algoritmo de clasificación.
-	- Como exportar el modelo para su uso posterior
-* La **fase 3** del proyecto será **preparar el cliente y el servidor**:
-	* Cliente:
-		- Como establecer la conexión.
-		- Como preparar los datos simulados para envíar.
-	* Servidor:
-		- Como establecer la conexión
-		- Como importar el modelo
-		- Como tratar la entrada de datos
-		- Como categorizar en tiempo de flujo real
-	
 		
-
 ## INDICE
-
+- [INTRODUCCIÓN](#introducción).
 - [ 1) FASE DE ANÁLISIS](#1-fase-de-análisis).
   - [1.1) PROCEDENCIA DE LOS DATOS](#11-procedencia-de-los-datos).
   - [1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS](#12-estructuración-de-los-datos-y-estadísticas).
@@ -87,6 +56,34 @@ Para todo ello dispondremos el proyectos en diferentes fases.
   - [ 5.1) ENTRENAMIENTO DEL MODELO](#51-entrenamiento-del-modelo).
   - [ 5.2) CLASIFICACIÓN A TIEMPO REAL](#52-clasificación-a-tiempo-real).
 
+## INTRODUCCIÓN
+
+El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
+Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
+	
+Para todo ello dispondremos el proyectos en diferentes fases. 
+* La **fase 1** del proyecto será la **fase analítica de los datos**. Se estudiará:
+	- Como se distribuyen los datos en los diferentes archivos.
+	- Que tipo de datos disponemos.
+	- Qué características tienen esos datos, haciendo uso de estadísticas básicas y distribuciones.
+	- Estandarización o normalización de los datos.
+	- Estudio de correlaciones lineales e introducción en correlaciones no lineales.
+	- Librerías usará cada parte.
+* La **fase 2** del proyecto será la **preparación de la entrada** del clasificador y su **entrenamiento**.
+	- Subdivisión del dataframe en grupos linealmente independientes.
+	- Aplicación de algorítmo PCA.
+	- Qué algoritmo de clasificación usar y su por qué.
+	- Estudio de los datos de salida del algoritmo de clasificación.
+	- Como exportar el modelo para su uso posterior
+* La **fase 3** del proyecto será **preparar el cliente y el servidor**:
+	* Cliente:
+		- Como establecer la conexión.
+		- Como preparar los datos simulados para envíar.
+	* Servidor:
+		- Como establecer la conexión
+		- Como importar el modelo
+		- Como tratar la entrada de datos
+		- Como categorizar en tiempo de flujo real
   
   ## 1 FASE DE ANÁLISIS
   ### 1.1) PROCEDENCIA DE LOS DATOS

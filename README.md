@@ -200,11 +200,11 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
 #### 1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS
      
-   Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
-   Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
-   Lo primero será importar todas las librerías necesarias para nuestro proyecto en spark.
+Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
+Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
+Lo primero será importar todas las librerías necesarias para nuestro proyecto en spark.
 
-   Para la parte del entrenamiento del modelo KMeans, PCA 
+Para la parte del entrenamiento del modelo KMeans, PCA 
 
    ```python
 	from pyspark import SparkConf, SparkContext
@@ -220,7 +220,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
 	import time
    ```
-   Para el servidor, que va a ser el que importe los modelos pre-entrenados:
+Para el servidor, que va a ser el que importe los modelos pre-entrenados:
 
    ```python
 	from pyspark import SparkConf,SparkContext
@@ -236,7 +236,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 	import prepro
    ```
 
-   Para el código del rover o cliente:
+Para el código del rover o cliente:
 
    ```python
 	import socket
@@ -252,7 +252,7 @@ Una vez importadas las librerías en los respectivos archivos, leemos las cabece
   
 #### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
    
-   Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo, máximo y percentiles.
+Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo, máximo y percentiles.
    
    ***Variables temporales***:
    *	**SEISMIC_TIME_SOLS**: Podemos ver que los valores mínimos están en 101 y los máximos en valores 1381 soles decimales.

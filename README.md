@@ -58,6 +58,7 @@
 
 ## INTRODUCCIÓN
 
+
 El propósito clave de nuestro proyecto es un clasificador a tiempo real de datos procedentes de un rover u otra sonda espacial.
 Esto se logrará con un cliente TCP(sonda que toma muestras)y un servidor TCP(el que se encargará de recibir los datos y clasificarlos en tiempo real). 
 	
@@ -164,7 +165,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
     
 
-  ### 1.2.2) ESTRUCTURA DE LOS DATOS
+  #### 1.2.2) ESTRUCTURA DE LOS DATOS
      
    Los que nos interesarán en concreto será el high_wind_summary y el event_wind_summary.
    En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
@@ -194,7 +195,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
    *	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
    *	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
 
-  ### [1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS](#indice)
+  #### [1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS](#indice)
      
    Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
    Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
@@ -249,7 +250,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
    
     
      
-   ### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
+  #### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
    
    Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo, máximo y percentiles.
    
@@ -288,9 +289,9 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
 	
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/7.png)
    
-### 1.3) AGRUPACIÓN DE DATOS
+  ### 1.3) AGRUPACIÓN DE DATOS
   
-### 1.3.1) NORMALIZACIÓN DEL DATASET
+  #### 1.3.1) NORMALIZACIÓN DEL DATASET
  
 Nuestro dataset tiene variables que describen efectos diferentes. Cada una tomará una distribución diferente de datos. 
 Para que todas escalen entre los mismos valores, usaremos la normalización o estandarización.
@@ -302,7 +303,7 @@ Este sería un ejemplo de normalización en Python, aunque para spark utilizarem
 	df_norm = pd.DataFrame(df_norm, columns=fd.columns)
    ```
 
-### 1.3.2) MATRIZ DE CORRELACIÓN
+  #### 1.3.2) MATRIZ DE CORRELACIÓN
   
 Trataremos de encontrar relaciones lineales entre pares de variables, dejando en dichos pares las demás variables como constantes.
 Esto nos permitirá encontrar relaciones y grupos entre variables.
@@ -322,7 +323,7 @@ Podremos realizarlas en Python con:
 	sns.heatmap(corr, square=True , cmap=sns.diverging_palette(220, 20, as_cmao=True), ax=ax , annot = True
    ```
   
-### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES
+  #### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES
 
 
 El resultado será el siguiente gráfico:
@@ -361,7 +362,7 @@ Se ve muy claramente que todas las variables están relacionadas entre ellas fue
 Esto quiere decir que los valores del viento afectan de forma lineal a los valores tomados del sismógrafo.
 		
 
-### 1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES
+  #### 1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES
 
 Una vez hecho el estudio de correlaciones, dividiremos el dataset en pequeños subgrupos.
 Todas las variables dentro de cada subgrupo estarán dentro de un grado de correlación, relacionada entre ellas.
@@ -372,7 +373,7 @@ En Python referenciaremos a dichas variables con:
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/11.png)
 
 
-### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE
+  ### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE
 
 Para tratar sobre la atmósfera de Marte y poder analizarla, deberemos de considerar ciertos valores como la temperatura, la presión y la velocidad del viento.
 
@@ -388,14 +389,14 @@ Lo mismo ocurre con las variables temporales.
 
 Estas relaciones no lineales no afectarán en principio al entrenamiento del modelo, aunque estarán metidas de forma indirecta.
 
-## 2 FASE DE MODELADO
-### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
-### 2.1.1) INTRODUCCIÓN PCA
+  ## 2) FASE DE MODELADO
+  ### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
+  ### 2.1.1) INTRODUCCIÓN PCA
   La funcionalidad de aplicar PCA o análisis de componentes principales es describir las características de un conjunto de variables y reducirlas a un conjunto de variables no correlacionadas de dimensiones menores.
 
   Debido a que para entrenar un modelo no supervisado deberán ser todas sus variables de entrenamiento independientes, deberemos de aplicar a cada subgrupo hecho anteriormente PCA.
 
-### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES
+  #### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES
 
 Vamos a crear los grupos y a agruparlos en una sola columna.
 ```python
@@ -440,14 +441,14 @@ df = scalerModel.transform(df)
 Finalmente procedemos a aplicar PCA a los dos primeros grupos, para dejarlos como una única variable.
 En el dataframe final tendremos todos los datos originales, junto con las variables con PCA y la estandarizacion ya aplicadas.
 
-### 2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS
+  ### 2.2) MODELOS DE CLASIFICACIÓN NO SUPERVISADOS
 
-  ### 2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS
+  #### 2.2.1) INTRODUCCIÓN MODELOS NO SUPERVISADOS
 Los modelos no supervisados permiten buscar patrones entre los datos que tenemos, sin la necesidad de que estos estén etiquetados. Como solo tenemos los datos de entrada y no datos de salida utilizar este tipo de modelo tiene como finalidad describir la estructura de los datos para encontrar algún tipo de organización que simplifique el análisis.
 
 Estos algoritmos también suelen tomar el nombre de algoritmos de clustering, ya que intentan formar grupos (clusters) a partir de los datos con características similares.
-  ### 2.2.2) MODELO K-MEANS
-  ### 2.2.2.1) INTRODUCCIÓN DEL MODELO K-MEANS
+  #### 2.2.2) MODELO K-MEANS
+  ##### 2.2.2.1) INTRODUCCIÓN DEL MODELO K-MEANS
 K-Means es uno de los algoritmos de clustering más populares. Intenta dividir unos datos en k grupos, siendo k un número seleccionado por el usuario, en el cual cada observación pertenece al grupo con la media más cercana.
 
 El algoritmo funciona de la siguiente manera: 
@@ -461,7 +462,7 @@ Es un algoritmo muy costoso computacionalmente, con una complejidad de O(n^2). A
 
 Este gráfico muestra una la mejora experimentada gracias a utilizar una versión paralelizable, en el que se observa que la mejora no es especialmente grande por el problema discutido anteriormente, pero sí bastante significante.
 
-  ### 2.2.2.2) MODELADO
+  ##### 2.2.2.2) MODELADO
 Para poder modelar con K-means utilizando las librerias de machine learning que nos proporciona Spark, primero tenemos que agrupar todos los datos de entrenamiento en una columna features.
 
 ```python
@@ -513,9 +514,9 @@ Por último, vamos a generar gráficos que nos permitan visualizar cómo se han 
 	plt.savefig("images/KM" + str(i) + "_rms_sols.png")
 ```
 
-### 2.2.3) MODELO GMM
+  #### 2.2.3) MODELO GMM
 
-### 2.2.3.1) INTRODUCCIÓN MODELO GMM
+  ##### 2.2.3.1) INTRODUCCIÓN MODELO GMM
 
 El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el que todos los puntos de datos se generan a partir de un número finito de distribuciones gaussianas. La finalidad de usar este tipo de modelos es aproximar o estimar a partir de sus componentes encontrando una similitud respecto a los datos que contiene las componentes.
 
@@ -523,7 +524,7 @@ El modelo GMM o modelo de mezcla Gaussiana es un modelo probabilístico en el qu
 
 Ejemplo de uso de GMM a partir de dos componentes.
 
-### 2.2.3.2) MODELADO
+  ##### 2.2.3.2) MODELADO
 
 Para modelar usando GMM debemos incluir la siguiente librería
 
@@ -545,9 +546,9 @@ A continuación vamos a hacer un bulce en el que se creará varios modelos para 
 	
    transformed = model.transform(trainingData)
 ```
-Para mostrar el gráfico generado se hará de la misma manera con la que se genera el grafico en el modelo de K-Means en el apartado 2.2.2.2).
+Para mostrar el gráfico generado se hará de la misma manera con la que se genera el grafico en el modelo de K-Means en el apartado 2.2.2.2.
 
-### 2.2.4) ANÁLISIS DE RESULTADOS:
+  #### 2.2.4) ANÁLISIS DE RESULTADOS:
 
 **Hay que tener especial cuidado en:**
 Cada vez que entrenas el modelo de KMeans, los grupos serán los mismos pero la enumeración cambiará.
@@ -555,7 +556,7 @@ En este análisis, cuando me refiera por ejemplo al TAG 0, tendremos que fijarno
 
 El análisis de resultados lo haremos en función del viento. Lo que queremos encontrar son patrones entre las lecturas del sismógrafo y la velocidad del viento junto a otras variables.
 
-### 2.2.4.1) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 1 M/S
+  ##### 2.2.4.1) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 1 M/S
 Empecemos analizando los resultados de nuestro algoritmo de clustering cuando la velocidad del viento sea menor que 1m/s. Veamos como se comporta el sismógrafo cuando no existe.
 
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/graph_less1.PNG)
@@ -572,7 +573,7 @@ Respecto a las estadísticas básicas,en la siguiente tabla tenemos en la parte 
 *	Cuanto menor presión y mayor temperatura del aire, mayor lecturas del sismógrafo. Esto se ve en los TAGs 1 y 2. 
 *	En cuanto al número de lecturas, vemos que el algoritmo tiene en cuenta sobre todo, el RMS_X a la hora de clasificar.
 
-### 2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 50 M/S
+  ##### 2.2.4.2) ANÁLISIS DEL VIENTO CUANDO ES MENOR A 50 M/S
 
 En el siguiente gráfico, pueden verse mucho mejor la influencia del viento en los datos del sismógrafo. Tomando forma en mariposa, donde a mayor velocidad del viento, todos los datos se acaban volviendo de color cyan.
 
@@ -589,7 +590,7 @@ Viendo la siguiente tabla:
 *	Cuanto menor presión del aire, sigue estando una mayor temperatura
 *	En el TAG 2, donde las lecturas del sismógrafo son mayores, la media de la velocidad del viento también aumenta respecto a los 	demás.
 
-### 2.2.4.3) CONCLUSIONES FINALES Y PARA FUTURO
+  ##### 2.2.4.3) CONCLUSIONES FINALES Y PARA FUTURO
 
 Según los datos anteriores, podemos entonces tomar como datos fiables todos los TAGs 0, 1 y 3 para futuras misiones y como no fiables el TAG 2, ya que necesita un análisis posterior.
 
@@ -649,8 +650,8 @@ El TAG 2, dada las estadísticas, tiene una velocidad del viento bastante peque�
 Esto puede ser un posible evento.
 
 
-## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
-### 3.1) GENERACIÓN Y ENVÍO DE DATOS
+  ## 3) FASE DE CLASIFICACIÓN A TIEMPO REAL
+  ### 3.1) GENERACIÓN Y ENVÍO DE DATOS
 Debido a que el número de datos que tenemos recopilados son limitados, deberemos de crear mediante distribuciones un dataset cuyo uso será simular un flujo de datos dinámico entre el cliente y el servidor para su posterior tratamiento.
 La generación de datos la haremos basadas en las distribuciones normales de cada columna en el dataset original. Para ello, primero vamos a coger las columnas que nos interesan del dataset de la misión Viking y a calcular la media y la desviación típica de estas columnas. 
 ```python
@@ -726,7 +727,7 @@ while 1:
     # Esperamos un tiempo hasta la proxima generacion 
     time.sleep(10)
 ```
-### 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS
+  ### 3.2) RECEPCIÓN Y CLASIFICACIÓN DE DATOS
 
 La recepción será por parte del servidor, que capturará las tramas y las irá clasificando con el modelo ya entrenado, como se ha visto anteriormente.
 Una vez configurada las variables de contexto, el código de recepción de datos será:
@@ -826,7 +827,7 @@ dfTransformed = kmeans.transform(df)
 ```
 Y listo.
 
-## 4) PRUEBAS DE RENDIMIENTO
+  ## 4) PRUEBAS DE RENDIMIENTO
 Vamos a hacer algunas pruebas de rendimiento sobre la genración del modelo de k-means, y todo el preprocesado que se debe hacer antes, viendo cómo de grande es la mejora por la paralelización.
 
 El ordenador que se utiliza para las pruebas locales tiene las siguientes especificaciones:
@@ -839,7 +840,7 @@ Lo que vamos a comprobar con estas pruebas, de forma precisa, es:
  - El tiempo que tarda en el preprocesado (Estandarización, combinación de columnas y PCA)
  - El tiempo que tarda en realizar k-means con 3, 4 y 5 grupos.
 
-### 4.1) RENDIMIENTO LOCAL
+  ### 4.1) RENDIMIENTO LOCAL
 La comparativa que vamos hacer en local es sencilla: Ver si utilizar más núcleos del procesador ofrece un resultado notable en el código. En el archivo spark/kmeans_classification.py utilizamos esta linea para utilizar todos los núcleos posibles (en este caso 4):
 ```python
 	conf = SparkConf().setMaster('local[*]').setAppName('Clustering')
@@ -862,7 +863,7 @@ Tiempo de entrenamiento para un k-means con 4 grupos:
 Como se puede comprobar, el tiempo que se tarda en hacer ambos procesos se reduce aproximadamente un 33%. Algo que se podría esperar si la paralelización fuese perfecta es que fuera una reducción del 75%, ya que hay 4 veces más hilos. Sin embargo, hay partes que no se pueden paralelizar y esto limita la mejora. Además, como se ha comentado anteriormente, el k-means es un algoritmo dificilmente paralelizable y en el que los hilos se tienen que comunicar constantemente entre sí, por lo que la paralelización siempre va a estar algo limitada.
 
 
-### 4.2) RENDIMIENTO EN AWS
+  ### 4.2) RENDIMIENTO EN AWS
 
 Ahora vamos a probar a ejecutar el modelo de entrenamiento de k-means en un cluster de Amazon Web Services. Para ello, vamos a utilizar 3 máquinas (1 master y 2 slaves) m4xlarge. Las especificaciones de estas máquinas son las siguientes:
  - Procesadores Intel Xeon® E5-2686 v4 (Broadwell) de 2,3 GHz o Intel Xeon® E5-2676 v3 (Haswell) de 2,4 GHz
@@ -911,10 +912,10 @@ Los siguientes gráficos muestran los resultados obtenidos:
 
 Como se puede observar, los resultados de cluster son *peores* que los obtenidos en local. Todos los procesos tardan aproximadamente 5 segundos más. Esto se debe probablemente al tamaño pequeño del dataset, de tan solo 40Mb. Al ser tan pequeño, el sobrecoste de las comunicaciones entre las máquinas es mayor que la acelaración que se produce al tener mayor número de procesadores. Esto es especialmente cierto para el proceso de kmeans, ya que la comunicación entre las máquinas es constante, y sin un dataset grande no se obtienen mejoras de rendimiento notables.
 
-## 5) CÓMO EJECUTAR EL CÓDIGO
+  ## 5) CÓMO EJECUTAR EL CÓDIGO
 A continuación proponemos la manera de ejecutar el código obtenido tras el análisis para obtener los gráficos y los datos que hemos obtenido, junto a la simulación a tiempo real.
 
-### 5.1) ENTRENAMIENTO DEL MODELO
+  ### 5.1) ENTRENAMIENTO DEL MODELO
 Para poder ejecutar el código, tenemos que instalar algunas dependencias, si no existen ya en el sistema (ademas de haber instalado Spark). Cabe destacar que hemos utilizado Ubuntu 18, por lo que este tutorial se hará para este SO. También utilizamos python 3.6 para ejecutar el código, por lo que si no se encuentrá en tu sistema primero deberías que instalarlo. A continuación, mostramos como instalar algunas de las dependencias para python utilizadas, instalandolas con pip3:
  - Numpy
 ```bash
@@ -949,7 +950,7 @@ spark-submit kmeans_classification
 Este código genera varios datos. Incluye los gráficos generados en spark/images, las descripciones estadísticas de cada grupo en spark/describes, y los modelos generados en spark/models. Si se ejecuta varias veces el código, las salidas se sobreescriben.
 Además, se crea un archivo log.txt en el que se van añadiendo los tiempos que ha tardado cada proceso, el cual se utiliza para generar las gráficas de comparación de tiempos.
 
-### 5.2) CLASIFICACIÓN A TIEMPO REAL
+  ### 5.2) CLASIFICACIÓN A TIEMPO REAL
 La mayor parte de prerrequisitos son iguales que en el apartado anterior, por lo que debería seguirse antes de hacer este. Se debe haber ejecutado además de la sección anterior para que este funcione, ya que requiere los modelos generados.
 Primero ejecutamos el generado de datos dentro de la carpeta spark:
 ```bash

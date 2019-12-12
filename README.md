@@ -8,11 +8,14 @@
 ![Hi](https://img.shields.io/badge/last%20commit-december%202019-yellow)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-  ### SOBRE NOSOTROS
+### SOBRE NOSOTROS
+
+```
 	Trabajo realizado por: 
 	*	Gabriel García García        : gabgarar@gmail.com   			github@gabgarar
 	*	Miguel Ángel Castillo Moreno : miguelangelcastillomoreno98@gmail.com	github@Miguel-ACM
-	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs	###
+	*	Jorge García Cerros          : jorgecrrs98@hotmail.com			github@JorgeGCrrs	
+```
 		
 ## INDICE
 - [INTRODUCCIÓN](#introducción).
@@ -86,8 +89,8 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 		- Como tratar la entrada de datos
 		- Como categorizar en tiempo de flujo real
   
-  ## 1 FASE DE ANÁLISIS
-  ### 1.1) PROCEDENCIA DE LOS DATOS
+## 1 FASE DE ANÁLISIS
+### 1.1) PROCEDENCIA DE LOS DATOS
   
   El programa Viking fue una de las misiones más ambiciosas lograda por EEUU.
   Dicho programa constaba de dos sondas, cada una de ellas formada por un orbitador y un módulo de aterrizaje. Ambas eran exactamente iguales, por ello que se las denominaran sondas gemelas.
@@ -100,14 +103,14 @@ Para todo ello dispondremos el proyectos en diferentes fases.
   Al final, los orbitadores lograron transmitir datos hacia el planeta Tierra , una hasta el año 1980 y la otra hasta el 1978.
   Referente a los módulos de aterrizaje, la Viking 1 retransmitió datos a la Tierra hasta el año 1980, y la Viking 2 hasta el 1982.
   
-  ### 1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS
+### 1.2) ESTRUCTURACIÓN DE LOS DATOS Y ESTADÍSTICAS
   
   Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por  la NASA.
   El enlace que usaremos para descargar los archivos es:
   
   https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
   
-  #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
+#### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
    Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
    Los archivos csv son archivos comúnmente utilizados, separados los datos por columnas y con un separador común. En nuestro caso es la coma.
    Los archivos tab, es el otro tipo contenedor de datos, donde cada dato está separado por un número de bytes establecidos en el archivo lbl y éste cambiará según la columna y su contenido.
@@ -165,7 +168,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
     
 
-  #### 1.2.2) ESTRUCTURA DE LOS DATOS
+#### 1.2.2) ESTRUCTURA DE LOS DATOS
      
    Los que nos interesarán en concreto será el high_wind_summary y el event_wind_summary.
    En ellos podremos encontrar las siguientes variables, tal y como describe su archivo lbl correspondiente:
@@ -195,7 +198,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
    *	**RMS_X_AXIS_X100**: valor eficaz o valor cuadrático medio. Nos permite calcular la magnitud de unos valores discretos en valores positivos.
    *	**MEAN_X_AXIS_CROSSINGS**: La media de valores en los que la onda toma el valor 0 en el eje descrito. En este caso será la variable X.
 
-  #### 1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS
+#### 1.2.3) LECTURA DEL DATASET E IMPORTACIÓN DE LIBRERÍAS
      
    Para empezar a analizar los datos, deberemos de leer dichos datos del dataset seleccionado. Empezaremos haciendo uso del archivo EVENT_WIND_SUMMARY.
    Debido al formato declarado anteriormente de los archivos tab y lbl, en Python no se pueden leer directamente por lo que hemos juntado ambos en un archivo csv.
@@ -247,7 +250,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
 
 Una vez importadas las librerías en los respectivos archivos, leemos las cabeceras de los archivos .lbl con el código:
   
-  #### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
+#### 1.2.4) ESTADÍSTICAS BÁSICAS DE VARIABLES A ANALIZAR
    
    Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo, máximo y percentiles.
    
@@ -286,9 +289,9 @@ Tal y como muestran los percentiles, tomaremos en cuenta hasta unos 350 DU. Los 
 	
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/7.png)
    
-  ### 1.3) AGRUPACIÓN DE DATOS
+### 1.3) AGRUPACIÓN DE DATOS
   
-  #### 1.3.1) NORMALIZACIÓN DEL DATASET
+#### 1.3.1) NORMALIZACIÓN DEL DATASET
  
 Nuestro dataset tiene variables que describen efectos diferentes. Cada una tomará una distribución diferente de datos. 
 Para que todas escalen entre los mismos valores, usaremos la normalización o estandarización.
@@ -300,7 +303,7 @@ Este sería un ejemplo de normalización en Python, aunque para spark utilizarem
 	df_norm = pd.DataFrame(df_norm, columns=fd.columns)
    ```
 
-  #### 1.3.2) MATRIZ DE CORRELACIÓN
+#### 1.3.2) MATRIZ DE CORRELACIÓN
   
 Trataremos de encontrar relaciones lineales entre pares de variables, dejando en dichos pares las demás variables como constantes.
 Esto nos permitirá encontrar relaciones y grupos entre variables.
@@ -320,7 +323,7 @@ Podremos realizarlas en Python con:
 	sns.heatmap(corr, square=True , cmap=sns.diverging_palette(220, 20, as_cmao=True), ax=ax , annot = True
    ```
   
-  #### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES
+#### 1.3.3) ANÁLISIS DE CORRELACIONES LINEALES
 
 
 El resultado será el siguiente gráfico:
@@ -359,7 +362,7 @@ Se ve muy claramente que todas las variables están relacionadas entre ellas fue
 Esto quiere decir que los valores del viento afectan de forma lineal a los valores tomados del sismógrafo.
 		
 
-  #### 1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES
+#### 1.3.4) AGRUPACIÓN DE VARIABLES COMO GRUPOS INDEPENDIENTES
 
 Una vez hecho el estudio de correlaciones, dividiremos el dataset en pequeños subgrupos.
 Todas las variables dentro de cada subgrupo estarán dentro de un grado de correlación, relacionada entre ellas.
@@ -370,7 +373,7 @@ En Python referenciaremos a dichas variables con:
 ![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/11.png)
 
 
-  ### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE
+### 1.4) VARIABLES NO CORRELACIONADAS LINEALMENTE
 
 Para tratar sobre la atmósfera de Marte y poder analizarla, deberemos de considerar ciertos valores como la temperatura, la presión y la velocidad del viento.
 
@@ -386,17 +389,17 @@ Lo mismo ocurre con las variables temporales.
 
 Estas relaciones no lineales no afectarán en principio al entrenamiento del modelo, aunque estarán metidas de forma indirecta.
 
-  ## 2) FASE DE MODELADO
+## 2) FASE DE MODELADO
 
-  ### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
+### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
 
-  #### 2.1.1) INTRODUCCIÓN PCA
+#### 2.1.1) INTRODUCCIÓN PCA
 
   La funcionalidad de aplicar PCA o análisis de componentes principales es describir las características de un conjunto de variables y reducirlas a un conjunto de variables no correlacionadas de dimensiones menores.
 
   Debido a que para entrenar un modelo no supervisado deberán ser todas sus variables de entrenamiento independientes, deberemos de aplicar a cada subgrupo hecho anteriormente PCA.
 
-  #### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES
+#### 2.1.2) APLICACIÓN PCA SOBRE CADA GRUPO DE VARIABLES DEPENDIENTES
 
 Vamos a crear los grupos y a agruparlos en una sola columna.
 ```python

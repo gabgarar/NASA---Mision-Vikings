@@ -390,12 +390,10 @@ Lo mismo ocurre con las variables temporales.
 Estas relaciones no lineales no afectarán en principio al entrenamiento del modelo, aunque estarán metidas de forma indirecta.
 
   ## 2) FASE DE MODELADO
-  [Volver al índice](#indice)
-  ### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
-  [Volver al índice](#indice)
 
-  ### 2.1.1) INTRODUCCIÓN PCA
-  [Volver al índice](#indice)
+  ### 2.1) REDUCCIÓN DE VARIABLES DEPENDIENTES A INDEPENDIENTES
+
+  #### 2.1.1) INTRODUCCIÓN PCA
 
   La funcionalidad de aplicar PCA o análisis de componentes principales es describir las características de un conjunto de variables y reducirlas a un conjunto de variables no correlacionadas de dimensiones menores.
 

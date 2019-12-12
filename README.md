@@ -108,7 +108,7 @@ Para todo ello dispondremos el proyectos en diferentes fases.
   Todos los datos recopilados del proyecto Viking están en un servidor público perteneciente a la universidad de Washington y dados por  la NASA.
   El enlace que usaremos para descargar los archivos es:
   
-  https://pds-geosciences.wustl.edu/missions/vlander/seismic.html.
+  [https://pds-geosciences.wustl.edu/missions/vlander/seismic.html](https://pds-geosciences.wustl.edu/missions/vlander/seismic.html)
   
 #### 1.2.1) ESTRUCTURA DE LOS ARCHIVOS
    Los archivos podremos encontrarlos en tres formatos diferentes: csv, lbl o tab.
@@ -258,15 +258,15 @@ Sobre cada variable, hablaremos de la media, la desviación estandar, el mínimo
    *	**SEISMIC_TIME_SOLS**: Podemos ver que los valores mínimos están en 101 y los máximos en valores 1381 soles decimales.
 	Observando los percentiles podemos decir que los valores están distribuidos por la normal de forma uniforme.
 	
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/1.png)
+![Describe.](images/describes/1.png)
 	
    *	**METEO_TIME_SOLS**: es una variable que engloba la escala de tiempo en soles decimales para datos meteorológicos.
 	
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/2.png)
+![Describe.](images/describes/2.png)
    *	**WIND_SEISMIC_INTERVAL**: En la documentación se expone que los valores en las ultimas tomas y en las primeras tomas del dataset, no tenía que tenerse en cuenta debido a que los valores eran excesivos.
 	Esto hace que la media y la desviación estándar inicial no pueda usarse.
    	
-![Describe.](https://github.com/gabgarar/NASA---Mision-Vikings/blob/master/images/describes/3.png)
+![Describe.](images/describes/3.png)
 
    ***Variables meteorológicas:***
    *	**WINDSPEED**:La velocidad del viento varía entre 0 m/s hasta los 531 m/s. Este valor no tiene sentido. Por lo que seguramente nos tocará hacer una limpieza inicial de valores.
